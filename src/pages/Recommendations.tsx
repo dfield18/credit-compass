@@ -112,80 +112,65 @@ const Recommendations = () => {
             </div>
 
             {/* Recommendations */}
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {recommendations.map((card, index) => (
                 <div 
                   key={card.name}
-                  className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft hover:shadow-card transition-all duration-300 animate-fade-up"
+                  className="bg-card border border-border rounded-2xl overflow-hidden shadow-soft hover:shadow-card transition-all duration-300 animate-fade-up flex flex-col"
                   style={{ animationDelay: `${(index + 1) * 150}ms` }}
                 >
-                  <div className="p-6">
+                  <div className="p-5 flex flex-col flex-1">
                     {/* Card Header */}
-                    <div className="flex items-start gap-4 mb-4">
+                    <div className="flex items-start gap-3 mb-4">
                       <div className="relative">
-                        <div className={`w-16 h-10 rounded-lg bg-gradient-to-br ${card.gradient} shadow-lg`} />
-                        <div className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-mint text-white text-xs font-bold flex items-center justify-center shadow-md">
+                        <div className={`w-14 h-9 rounded-lg bg-gradient-to-br ${card.gradient} shadow-lg`} />
+                        <div className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-mint text-white text-xs font-bold flex items-center justify-center shadow-md">
                           {card.rank}
                         </div>
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="font-display font-semibold text-lg text-foreground">{card.name}</h3>
-                            <p className="text-sm text-muted-foreground">{card.issuer}</p>
-                          </div>
-                          <div className="flex items-center gap-1 bg-mint/10 text-mint px-3 py-1 rounded-full">
-                            <Star className="w-4 h-4 fill-current" />
-                            <span className="text-sm font-semibold">{card.matchScore}% Match</span>
-                          </div>
-                        </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-display font-semibold text-base text-foreground leading-tight">{card.name}</h3>
+                        <p className="text-xs text-muted-foreground">{card.issuer}</p>
                       </div>
+                    </div>
+
+                    {/* Match Score */}
+                    <div className="flex items-center gap-1 bg-mint/10 text-mint px-3 py-1.5 rounded-full w-fit mb-4">
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                      <span className="text-sm font-semibold">{card.matchScore}% Match</span>
                     </div>
 
                     {/* Quick Stats */}
-                    <div className="grid grid-cols-3 gap-4 mb-4 p-4 bg-muted/50 rounded-xl">
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-1">Sign-up Bonus</p>
-                        <p className="font-semibold text-foreground">{card.bonus}</p>
+                    <div className="space-y-2 mb-4 p-3 bg-muted/50 rounded-xl">
+                      <div className="flex justify-between">
+                        <p className="text-xs text-muted-foreground">Bonus</p>
+                        <p className="text-xs font-semibold text-foreground">{card.bonus}</p>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-1">Annual Fee</p>
-                        <p className="font-semibold text-foreground">{card.annualFee}</p>
+                      <div className="flex justify-between">
+                        <p className="text-xs text-muted-foreground">Annual Fee</p>
+                        <p className="text-xs font-semibold text-foreground">{card.annualFee}</p>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground mb-1">APR</p>
-                        <p className="font-semibold text-foreground text-sm">{card.apr}</p>
+                      <div className="flex justify-between">
+                        <p className="text-xs text-muted-foreground">APR</p>
+                        <p className="text-xs font-semibold text-foreground">{card.apr}</p>
                       </div>
-                    </div>
-
-                    {/* Why It's a Match */}
-                    <div className="mb-4 p-4 bg-mint/5 border border-mint/10 rounded-xl">
-                      <p className="text-sm text-foreground">
-                        <span className="font-semibold text-mint">Why it's right for you:</span>{" "}
-                        {card.whyMatch}
-                      </p>
                     </div>
 
                     {/* Highlights */}
-                    <div className="grid grid-cols-2 gap-2 mb-4">
-                      {card.highlights.map((highlight) => (
-                        <div key={highlight} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Check className="w-4 h-4 text-mint flex-shrink-0" />
+                    <div className="space-y-1.5 mb-4 flex-1">
+                      {card.highlights.slice(0, 3).map((highlight) => (
+                        <div key={highlight} className="flex items-start gap-2 text-xs text-muted-foreground">
+                          <Check className="w-3.5 h-3.5 text-mint flex-shrink-0 mt-0.5" />
                           <span>{highlight}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-3">
-                      <Button className="flex-1 bg-mint hover:bg-mint/90 text-white">
-                        Apply Now
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                      </Button>
-                      <Button variant="outline" className="flex-1">
-                        Compare Details
-                      </Button>
-                    </div>
+                    <Button className="w-full bg-mint hover:bg-mint/90 text-white mt-auto">
+                      Apply Now
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </Button>
                   </div>
                 </div>
               ))}
