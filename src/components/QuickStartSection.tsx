@@ -1,4 +1,5 @@
 import { CreditCard, Plane, Percent, Gift, Shield, TrendingUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -46,6 +47,12 @@ const categories = [
 ];
 
 const QuickStartSection = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryTitle: string) => {
+    navigate(`/recommendations?q=${encodeURIComponent(categoryTitle)}`);
+  };
+
   return (
     <section className="py-20 bg-card">
       <div className="container mx-auto px-4">
@@ -63,11 +70,10 @@ const QuickStartSection = () => {
           {/* Categories Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((category, index) => (
-              <a
+              <button
                 key={category.title}
-                href="#"
-                className="group flex items-start gap-4 p-5 bg-background rounded-2xl border border-border hover:border-primary/30 hover:shadow-card transition-all duration-300"
-                style={{ animationDelay: `${index * 0.05}s` }}
+                onClick={() => handleCategoryClick(category.title)}
+                className="group flex items-start gap-4 p-5 bg-background rounded-2xl border border-border hover:border-primary/30 hover:shadow-card transition-all duration-300 text-left w-full"
               >
                 <div className={`w-12 h-12 rounded-xl ${category.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                   <category.icon className="w-5 h-5" />
@@ -85,7 +91,7 @@ const QuickStartSection = () => {
                     {category.description}
                   </p>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
         </div>

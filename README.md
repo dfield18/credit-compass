@@ -1,4 +1,13 @@
-# Welcome to your Lovable project
+# Credit Compass - AI-Powered Credit Card Recommendation Website
+
+A credit card recommendation website with an AI chatbot that answers questions about credit cards and provides personalized card recommendations.
+
+## Features
+
+- **AI Chatbot Integration**: Powered by Chatbase API for answering credit card questions
+- **Smart Follow-up Questions**: Uses OpenAI API to generate relevant follow-up questions
+- **Interactive Chat Interface**: Real-time chat with message history and suggested questions
+- **Credit Card Recommendations**: Get personalized card recommendations based on your needs
 
 ## Project info
 
@@ -32,9 +41,55 @@ cd <YOUR_PROJECT_NAME>
 # Step 3: Install the necessary dependencies.
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Step 4: Set up environment variables.
+# Create a .env file in the root directory with the following variables:
+# VITE_CHATBASE_API_KEY=your_chatbase_api_key_here
+# VITE_CHATBASE_CHATBOT_ID=your_chatbase_chatbot_id_here
+# VITE_OPENAI_API_KEY=your_openai_api_key_here
+
+# Step 5: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
+
+## Environment Variables Setup
+
+This project requires the following environment variables to be set in a `.env` file:
+
+1. **CHATBASE_API_KEY**: Your Chatbase API key
+   - Get it from your Chatbase dashboard
+   - Required for chatbot functionality
+
+2. **CHATBASE_CHATBOT_ID**: Your Chatbase chatbot ID
+   - Get it from your Chatbase dashboard
+   - Required for chatbot functionality
+
+3. **OPENAI_API_KEY**: Your OpenAI API key
+   - Get it from https://platform.openai.com/api-keys
+   - Used for generating suggested follow-up questions
+   - Optional: If not provided, default questions will be used
+
+### Creating the .env file
+
+Create a `.env` file in the root directory of the project:
+
+```bash
+# Chatbase Configuration
+VITE_CHATBASE_API_KEY=your_chatbase_api_key_here
+VITE_CHATBASE_CHATBOT_ID=your_chatbase_chatbot_id_here
+
+# OpenAI Configuration (for suggested follow-up questions)
+VITE_OPENAI_API_KEY=your_openai_api_key_here
+```
+
+**Note**: In Vite, environment variables must be prefixed with `VITE_` to be accessible in the client-side code.
+
+## How the Chatbot Works
+
+1. **User Input**: Users can type questions in the input bar at the bottom of the chat interface
+2. **Chatbase Integration**: Questions are sent to the Chatbase API, which processes them using your configured chatbot
+3. **Response Display**: The chatbot's response is displayed in the chat interface
+4. **Suggested Questions**: After receiving a response, OpenAI generates relevant follow-up questions (if API key is configured)
+5. **Suggested Question Buttons**: Users can click on suggested question buttons to automatically send that question to the chatbot
 
 **Edit a file directly in GitHub**
 

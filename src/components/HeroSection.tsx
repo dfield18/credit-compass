@@ -1,7 +1,27 @@
+import { useState, FormEvent } from "react";
 import { Search, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (query: string) => {
+    if (query.trim()) {
+      navigate(`/recommendations?q=${encodeURIComponent(query.trim())}`);
+    }
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    handleSearch(searchQuery);
+  };
+
+  const handleTagClick = (tag: string) => {
+    handleSearch(tag);
+  };
+
   return (
     <section className="relative overflow-hidden">
       {/* Decorative elements */}
@@ -11,41 +31,43 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 relative">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mint-light text-primary text-sm font-medium mb-8 animate-fade-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mint-light text-primary text-sm font-medium mb-8">
             <Sparkles className="w-4 h-4" />
             <span>AI-powered recommendations</span>
           </div>
           
           {/* Headline */}
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium text-foreground leading-[1.1] tracking-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium text-foreground leading-[1.1] tracking-tight mb-6">
             Find the perfect
             <span className="block text-primary">credit card</span>
             for your lifestyle
           </h1>
           
           {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
             Compare 500+ cards across rewards, cashback, and travel benefits. 
             Get personalized recommendations in seconds.
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-xl mx-auto animate-fade-up" style={{ animationDelay: "0.3s" }}>
-            <div className="relative group">
+          <div className="max-w-xl mx-auto">
+            <form onSubmit={handleSubmit} className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative flex items-center bg-card border border-border rounded-2xl shadow-card overflow-hidden">
                 <Search className="w-5 h-5 text-muted-foreground ml-5" />
                 <input
                   type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="What are you looking for? e.g., travel rewards"
                   className="flex-1 px-4 py-4 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none"
                 />
-                <Button className="m-2 rounded-xl">
+                <Button type="submit" className="m-2 rounded-xl">
                   Search
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
-            </div>
+            </form>
             
             {/* Quick links */}
             <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
@@ -53,7 +75,8 @@ const HeroSection = () => {
               {["Cash Back", "Travel", "No Annual Fee", "0% APR"].map((tag) => (
                 <button
                   key={tag}
-                  className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors"
+                  onClick={() => handleTagClick(tag)}
+                  className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer"
                 >
                   {tag}
                 </button>
@@ -63,7 +86,7 @@ const HeroSection = () => {
         </div>
         
         {/* Trust indicators */}
-        <div className="max-w-3xl mx-auto mt-16 pt-12 border-t border-border animate-fade-up" style={{ animationDelay: "0.4s" }}>
+        <div className="max-w-3xl mx-auto mt-16 pt-12 border-t border-border">
           <div className="grid grid-cols-3 gap-8 text-center">
             <div>
               <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">300+</div>
