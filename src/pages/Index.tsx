@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import QuickStartSection from "@/components/QuickStartSection";
-import StatsSection from "@/components/StatsSection";
 import FeaturedCardsSection from "@/components/FeaturedCardsSection";
+import StatsSection from "@/components/StatsSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -12,8 +12,8 @@ const Index = () => {
       <main>
         <HeroSection />
         <QuickStartSection />
-        <StatsSection />
         <FeaturedCardsSection />
+        <StatsSection />
       </main>
       <Footer />
     </div>
