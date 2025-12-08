@@ -66,16 +66,16 @@ const HeroSection = () => {
         <div className="max-w-3xl mx-auto mt-16 pt-12 border-t border-border animate-fade-up" style={{ animationDelay: "0.4s" }}>
           <div className="grid grid-cols-3 gap-8 text-center">
             <div>
-              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">500+</div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">300+</div>
               <div className="text-sm text-muted-foreground mt-1">Cards Analyzed</div>
             </div>
             <div>
-              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">2M+</div>
-              <div className="text-sm text-muted-foreground mt-1">Users Helped</div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">1,400+</div>
+              <div className="text-sm text-muted-foreground mt-1">Verified Data Sources</div>
             </div>
             <div>
-              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">4.9</div>
-              <div className="text-sm text-muted-foreground mt-1">User Rating</div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">AI-Powered</div>
+              <div className="text-sm text-muted-foreground mt-1">Smart Recommendations</div>
             </div>
           </div>
         </div>
