@@ -1,4 +1,4 @@
-import { Star, Gift, Plane, Shield, ArrowRight } from "lucide-react";
+import { Star, Gift, Plane, Shield, ArrowRight, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const cards = [
@@ -32,6 +32,16 @@ const cards = [
     color: "from-amber-500 to-orange-600",
     icon: Star,
   },
+  {
+    name: "Capital One Venture X",
+    category: "Premium Travel",
+    rating: 4.8,
+    bonus: "75,000 Miles",
+    annualFee: "$395",
+    highlight: "10X on hotels & cars",
+    color: "from-purple-600 to-indigo-700",
+    icon: Percent,
+  },
 ];
 
 const FeaturedCardsSection = () => {
@@ -55,7 +65,7 @@ const FeaturedCardsSection = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {cards.map((card, index) => (
             <div
               key={index}
