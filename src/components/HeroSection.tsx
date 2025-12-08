@@ -1,108 +1,85 @@
-import { Search, Sparkles, ArrowRight } from "lucide-react";
+import { Search, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 
 const HeroSection = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-hero overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-soft" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse-soft delay-500" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/5 to-transparent rounded-full" />
-      </div>
-
-      {/* Grid Pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: `linear-gradient(hsl(0 0% 100% / 0.1) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }}
-      />
-
-      <div className="container mx-auto px-4 relative z-10 pt-24">
+    <section className="relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-[10%] w-72 h-72 bg-mint-light rounded-full blur-3xl opacity-60" />
+      <div className="absolute bottom-0 left-[5%] w-96 h-96 bg-coral-light rounded-full blur-3xl opacity-40" />
+      
+      <div className="container mx-auto px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 relative">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-glass-dark border border-primary/20 mb-8 animate-fade-up">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary-foreground/90">
-              AI-Powered Recommendations
-            </span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mint-light text-primary text-sm font-medium mb-8 animate-fade-up">
+            <Sparkles className="w-4 h-4" />
+            <span>AI-powered recommendations</span>
           </div>
-
-          {/* Heading */}
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 animate-fade-up delay-100">
-            Find Your{" "}
-            <span className="text-gradient-primary">Perfect</span>
-            <br />
-            Credit Card
+          
+          {/* Headline */}
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium text-foreground leading-[1.1] tracking-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+            Find the perfect
+            <span className="block text-primary">credit card</span>
+            for your lifestyle
           </h1>
-
-          {/* Subheading */}
-          <p className="text-lg sm:text-xl text-primary-foreground/70 max-w-2xl mx-auto mb-10 animate-fade-up delay-200">
-            Get personalized credit card recommendations powered by AI. 
-            Compare 300+ cards and find the one that fits your lifestyle.
+          
+          {/* Subheadline */}
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
+            Compare 500+ cards across rewards, cashback, and travel benefits. 
+            Get personalized recommendations in seconds.
           </p>
-
+          
           {/* Search Bar */}
-          <div className="max-w-2xl mx-auto mb-8 animate-fade-up delay-300">
+          <div className="max-w-xl mx-auto animate-fade-up" style={{ animationDelay: "0.3s" }}>
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-primary/30 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
-              <div className="relative flex items-center bg-card rounded-xl shadow-xl overflow-hidden">
-                <div className="flex-1 flex items-center px-5 py-4">
-                  <Search className="w-5 h-5 text-muted-foreground mr-3 flex-shrink-0" />
-                  <input
-                    type="text"
-                    placeholder="Ask about credit cards, rewards, travel perks..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none text-base"
-                  />
-                </div>
-                <div className="pr-2">
-                  <Button variant="hero" size="lg" className="rounded-lg">
-                    <Search className="w-4 h-4 mr-2" />
-                    Search
-                  </Button>
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative flex items-center bg-card border border-border rounded-2xl shadow-card overflow-hidden">
+                <Search className="w-5 h-5 text-muted-foreground ml-5" />
+                <input
+                  type="text"
+                  placeholder="What are you looking for? e.g., travel rewards"
+                  className="flex-1 px-4 py-4 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none"
+                />
+                <Button className="m-2 rounded-xl">
+                  Search
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
               </div>
             </div>
-            <div className="flex items-center justify-center gap-6 mt-4 text-sm text-primary-foreground/50">
-              <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Enter to send
-              </span>
-              <span className="flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-primary" />
-                Instant AI recommendations
-              </span>
+            
+            {/* Quick links */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+              <span className="text-sm text-muted-foreground">Popular:</span>
+              {["Cash Back", "Travel", "No Annual Fee", "0% APR"].map((tag) => (
+                <button
+                  key={tag}
+                  className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors"
+                >
+                  {tag}
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Quick Actions */}
-          <div className="flex flex-wrap items-center justify-center gap-3 animate-fade-up delay-400">
-            <Button variant="glass" size="sm" className="rounded-full">
-              Best Travel Cards
-              <ArrowRight className="w-3 h-3 ml-1" />
-            </Button>
-            <Button variant="glass" size="sm" className="rounded-full">
-              Cash Back Cards
-              <ArrowRight className="w-3 h-3 ml-1" />
-            </Button>
-            <Button variant="glass" size="sm" className="rounded-full">
-              No Annual Fee
-              <ArrowRight className="w-3 h-3 ml-1" />
-            </Button>
+        </div>
+        
+        {/* Trust indicators */}
+        <div className="max-w-3xl mx-auto mt-16 pt-12 border-t border-border animate-fade-up" style={{ animationDelay: "0.4s" }}>
+          <div className="grid grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">500+</div>
+              <div className="text-sm text-muted-foreground mt-1">Cards Analyzed</div>
+            </div>
+            <div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">2M+</div>
+              <div className="text-sm text-muted-foreground mt-1">Users Helped</div>
+            </div>
+            <div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">4.9</div>
+              <div className="text-sm text-muted-foreground mt-1">User Rating</div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Floating Cards Decoration */}
-      <div className="absolute bottom-10 left-10 w-48 h-32 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl rotate-[-15deg] blur-sm opacity-50 animate-float hidden lg:block" />
-      <div className="absolute top-32 right-16 w-40 h-28 bg-gradient-to-br from-gold/20 to-gold/5 rounded-2xl rotate-[12deg] blur-sm opacity-50 animate-float-delayed hidden lg:block" />
     </section>
   );
 };

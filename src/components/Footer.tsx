@@ -1,63 +1,93 @@
-import { CreditCard } from "lucide-react";
+import { Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const footerLinks = {
+  Product: ["Credit Cards", "Compare Cards", "Best Cards", "Reviews"],
+  Resources: ["Guides", "Calculator", "Blog", "FAQ"],
+  Company: ["About Us", "Careers", "Press", "Contact"],
+  Legal: ["Privacy Policy", "Terms of Service", "Disclosures"],
+};
 
 const Footer = () => {
   return (
-    <footer className="bg-navy text-primary-foreground">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-                <CreditCard className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="font-display font-bold text-xl">
-                CardMatch<span className="text-primary">AI</span>
-              </span>
+    <footer className="bg-foreground text-background/80">
+      {/* Newsletter Section */}
+      <div className="border-b border-background/10">
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="font-display text-xl font-medium text-background mb-2">
+                Stay in the loop
+              </h3>
+              <p className="text-background/60 text-sm">
+                Get the latest credit card offers and tips delivered to your inbox.
+              </p>
             </div>
-            <p className="text-primary-foreground/60 text-sm">
-              AI-powered credit card recommendations to help you find the perfect card for your lifestyle.
-            </p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h4 className="font-semibold mb-4">Credit Cards</h4>
-            <ul className="space-y-3 text-sm text-primary-foreground/60">
-              <li><a href="#" className="hover:text-primary transition-colors">Travel Cards</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Cash Back Cards</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Business Cards</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Student Cards</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-3 text-sm text-primary-foreground/60">
-              <li><a href="#" className="hover:text-primary transition-colors">Credit Score Guide</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Rewards Calculator</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">FAQs</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-3 text-sm text-primary-foreground/60">
-              <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-            </ul>
+            <div className="flex w-full md:w-auto gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 md:w-64 px-4 py-2.5 rounded-lg bg-background/10 border border-background/20 text-background placeholder:text-background/40 focus:outline-none focus:border-background/40"
+              />
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg">
+                <Mail className="w-4 h-4 mr-2" />
+                Subscribe
+              </Button>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom */}
-        <div className="pt-8 border-t border-primary-foreground/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-primary-foreground/40">
-          <p>© 2024 CardMatchAI. All rights reserved.</p>
-          <p>
-            Advertiser Disclosure: We may receive compensation when you apply for credit cards.
-          </p>
+      {/* Main Footer */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1">
+              <a href="/" className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                  <span className="text-primary-foreground font-display font-bold text-lg">C</span>
+                </div>
+                <span className="font-display text-xl font-medium text-background">
+                  CardWise
+                </span>
+              </a>
+              <p className="text-sm text-background/50 leading-relaxed">
+                Making credit card decisions simple and transparent.
+              </p>
+            </div>
+
+            {/* Links */}
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <h4 className="font-medium text-background mb-4 text-sm">
+                  {category}
+                </h4>
+                <ul className="space-y-2.5">
+                  {links.map((link) => (
+                    <li key={link}>
+                      <a
+                        href="#"
+                        className="text-sm text-background/50 hover:text-background transition-colors"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom */}
+          <div className="mt-12 pt-8 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-background/40">
+              © 2024 CardWise. All rights reserved.
+            </p>
+            <p className="text-xs text-background/40 text-center sm:text-right max-w-lg">
+              CardWise may receive compensation from card issuers. Opinions are our own.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
