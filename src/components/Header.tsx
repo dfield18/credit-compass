@@ -39,15 +39,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
-            <Button size="sm" className="rounded-full px-5">
-              Get Started
-            </Button>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -72,14 +63,6 @@ const Header = () => {
                 </a>
               ))}
             </nav>
-            <div className="flex flex-col gap-2 mt-4 px-4">
-              <Button variant="outline" className="w-full">
-                Sign In
-              </Button>
-              <Button className="w-full">
-                Get Started
-              </Button>
-            </div>
           </div>
         )}
       </div>
