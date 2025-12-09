@@ -515,9 +515,9 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="w-full flex flex-col h-full">
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto space-y-6 mb-8">
+      <div className="w-full flex-1 overflow-y-auto space-y-6 mb-8">
         {messages.length === 0 && !initialQuestion && !isLoading && !isInitializingRef.current && (
           <div className="text-center text-muted-foreground py-8">
             <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50" />
@@ -717,7 +717,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
 
         {/* Suggested Questions */}
         {suggestedQuestions.length > 0 && !isLoading && (
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-soft">
+          <div className="w-full bg-card border border-border rounded-2xl p-6 shadow-soft">
             <p className="text-foreground mb-4">You might also want to ask:</p>
             <div className="flex flex-wrap gap-2">
               {suggestedQuestions.map((question, index) => (
