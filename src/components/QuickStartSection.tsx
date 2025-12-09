@@ -4,29 +4,29 @@ import { useNavigate } from "react-router-dom";
 const categories = [
   {
     icon: Gift,
-    title: "Cash Back",
-    description: "Earn money on everyday purchases",
+    title: "Online Shopping",
+    description: "Boosted rewards for e-commerce & subscriptions",
     count: 87,
     color: "bg-mint-light text-primary",
   },
   {
     icon: Plane,
-    title: "Travel Rewards",
-    description: "Miles, points & travel perks",
+    title: "Airline Cards",
+    description: "Free bags, priority boarding & airline-specific rewards",
     count: 64,
     color: "bg-coral-light text-coral",
   },
   {
     icon: Percent,
-    title: "0% APR",
-    description: "No interest financing options",
+    title: "Business Cards",
+    description: "Rewards for advertising, travel, supplies & growth",
     count: 45,
     color: "bg-secondary text-slate",
   },
   {
     icon: Shield,
-    title: "No Annual Fee",
-    description: "Great cards that cost nothing",
+    title: "Rotating Categories",
+    description: "Quarterly bonus categories for flexible earners",
     count: 112,
     color: "bg-mint-light text-primary",
   },
@@ -83,9 +83,6 @@ const QuickStartSection = () => {
                     <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
                       {category.title}
                     </h3>
-                    <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">
-                      {category.count}
-                    </span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
                     {category.description}

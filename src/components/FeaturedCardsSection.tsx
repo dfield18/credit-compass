@@ -1,4 +1,4 @@
-import { Star, ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const cards = [
@@ -7,11 +7,11 @@ const cards = [
     issuer: "Chase",
     category: "Travel",
     rating: 4.9,
-    bonus: "60,000 points",
-    bonusValue: "$750",
+    bonus: "75,000 pts after $5,000 spend in first 3 mo",
+    bonusValue: "$1,538 value",
     annualFee: "$95",
     apr: "21.49% - 28.49%",
-    highlights: ["3X on dining", "2X on travel", "No foreign fees"],
+    highlights: ["5× on Chase-portal travel", "3× on dining", "Flexible Ultimate Rewards transfers"],
     gradient: "from-blue-600 via-blue-700 to-indigo-800",
     featured: true,
   },
@@ -24,7 +24,7 @@ const cards = [
     bonusValue: "$200/yr avg",
     annualFee: "$0",
     apr: "18.99% - 28.99%",
-    highlights: ["1% when you buy", "1% when you pay", "No categories"],
+    highlights: ["1% when you buy, 1% when you pay", "Flat-rate on all purchases", "No annual fee"],
     gradient: "from-emerald-500 via-teal-600 to-cyan-700",
     featured: false,
   },
@@ -35,7 +35,7 @@ const cards = [
     rating: 4.9,
     bonus: "60,000 points",
     bonusValue: "$600",
-    annualFee: "$250",
+    annualFee: "$325",
     apr: "See terms",
     highlights: ["4X on restaurants", "4X on groceries", "$120 dining credit"],
     gradient: "from-amber-400 via-orange-500 to-rose-600",
@@ -62,21 +62,15 @@ const FeaturedCardsSection = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-10">
-            <div>
-              <span className="tag-accent mb-3">Editor's picks</span>
-              <h2 className="font-display text-3xl sm:text-4xl font-medium text-foreground">
-                Top rated cards
-              </h2>
-            </div>
-            <Button variant="ghost" className="text-primary hover:text-primary/80">
-              View all cards
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+          <div className="mb-10">
+            <span className="tag-accent mb-3">Editor's picks</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-medium text-foreground">
+              Top rated cards
+            </h2>
           </div>
 
           {/* Cards List */}
-          <div className="space-y-4">
+          <div className="space-y-5">
             {cards.map((card) => (
               <div
                 key={card.name}
@@ -85,14 +79,14 @@ const FeaturedCardsSection = () => {
                 }`}
               >
                 {card.featured && (
-                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-bl-lg">
+                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-medium px-3 py-1.5 rounded-bl-lg z-10">
                     Best Overall
                   </div>
                 )}
                 
                 <div className="flex flex-col lg:flex-row">
                   {/* Card Visual */}
-                  <div className="lg:w-64 p-6 flex items-center justify-center bg-muted/30">
+                  <div className="lg:w-64 p-7 flex items-center justify-center bg-muted/30">
                     <div className={`w-44 h-28 rounded-xl bg-gradient-to-br ${card.gradient} shadow-lg transform group-hover:scale-105 group-hover:-rotate-2 transition-all duration-300 p-4 flex flex-col justify-between`}>
                       <div className="text-white/90 text-xs font-medium">{card.issuer}</div>
                       <div className="flex justify-between items-end">
@@ -107,55 +101,62 @@ const FeaturedCardsSection = () => {
                   </div>
 
                   {/* Card Info */}
-                  <div className="flex-1 p-6">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="tag">{card.category}</span>
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4 fill-accent text-accent" />
-                            <span className="text-sm font-medium text-foreground">{card.rating}</span>
+                  <div className="flex-1 p-7">
+                    <div className="flex flex-col h-full">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="tag">{card.category}</span>
+                      </div>
+                      <h3 className="font-display text-2xl font-medium text-foreground mb-3.5">
+                        {card.name}
+                      </h3>
+                      
+                      {/* Highlights */}
+                      <div className="flex items-center gap-6 mb-5">
+                        {card.highlights.map((highlight) => (
+                          <div key={highlight} className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
+                            <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                            <span>{highlight}</span>
                           </div>
-                        </div>
-                        <h3 className="font-display text-xl font-medium text-foreground mb-3">
-                          {card.name}
-                        </h3>
-                        
-                        {/* Highlights */}
-                        <div className="flex flex-wrap gap-x-4 gap-y-1">
-                          {card.highlights.map((highlight) => (
-                            <div key={highlight} className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                              <Check className="w-3.5 h-3.5 text-primary" />
-                              {highlight}
-                            </div>
-                          ))}
-                        </div>
+                        ))}
                       </div>
 
                       {/* Stats */}
-                      <div className="flex flex-wrap sm:flex-nowrap gap-6 sm:gap-8 text-sm">
+                      <div className="flex items-start gap-8 text-sm mt-auto">
                         <div>
-                          <div className="text-muted-foreground mb-1">Welcome Bonus</div>
-                          <div className="font-medium text-foreground">{card.bonus}</div>
-                          <div className="text-xs text-primary">{card.bonusValue} value</div>
+                          <div className="text-muted-foreground mb-1 text-xs uppercase tracking-wide">Welcome Bonus</div>
+                          <div className="font-medium text-foreground mb-0.5 leading-tight">{card.bonus}</div>
+                          <div className="text-xs text-primary font-medium">{card.bonusValue}</div>
                         </div>
                         <div>
-                          <div className="text-muted-foreground mb-1">Annual Fee</div>
-                          <div className="font-medium text-foreground">{card.annualFee}</div>
-                        </div>
-                        <div className="hidden sm:block">
-                          <div className="text-muted-foreground mb-1">APR</div>
-                          <div className="font-medium text-foreground">{card.apr}</div>
+                          <div className="text-muted-foreground mb-1 text-xs uppercase tracking-wide">Annual Fee</div>
+                          <div className="font-medium text-foreground mb-0.5 leading-tight">{card.annualFee}</div>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* CTA */}
-                  <div className="lg:w-48 p-6 flex items-center justify-center border-t lg:border-t-0 lg:border-l border-border bg-muted/20">
-                    <Button className="w-full lg:w-auto rounded-xl">
-                      Apply Now
-                    </Button>
+                  <div className="lg:w-48 p-5 flex items-center justify-center border-t lg:border-t-0 lg:border-l border-border bg-muted/20 flex-shrink-0">
+                    {(() => {
+                      const cardUrls: Record<string, string> = {
+                        "Chase Sapphire Preferred": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+                        "Citi Double Cash": "https://www.citi.com/credit-cards/citi-double-cash-credit-card",
+                        "Amex Gold Card": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
+                        "Capital One Venture X": "https://www.capitalone.com/credit-cards/venture-x/?external_id=WWW_ADG-127427517283_ZZZ_ONL-SE_ZZZZZ_T_SEM2_STL-_c_Zg__kenshoo_clickid__672050000821_695580&target_id=aud-374367914346:kwd-1245077318586&oC=0bQ0noocw8&gad_source=1&gad_campaignid=10936576704&gbraid=0AAAAAD--QXATVpCF0Aonrja_UHU3sei8f&gclid=Cj0KCQiArt_JBhCTARIsADQZayl3JEOw2b45SKFATL7460XvaRmKCnR4sRdnOgdHq370qEGnnKXyjwIaAketEALw_wcB"
+                      };
+                      const url = cardUrls[card.name];
+                      return url ? (
+                        <Button asChild className="w-full lg:w-auto rounded-xl px-6 py-2.5">
+                          <a href={url} target="_blank" rel="noopener noreferrer">
+                            Apply Now
+                          </a>
+                        </Button>
+                      ) : (
+                        <Button className="w-full lg:w-auto rounded-xl px-6 py-2.5">
+                          Apply Now
+                        </Button>
+                      );
+                    })()}
                   </div>
                 </div>
               </div>

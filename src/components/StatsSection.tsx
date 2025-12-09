@@ -2,9 +2,14 @@ import { Shield, Zap, Users, Award } from "lucide-react";
 
 const features = [
   {
+    icon: Award,
+    title: "AI-Assisted Matching",
+    description: "Our AI suggests cards based on your habits, but it doesn't know your full financial picture—so treat results as a starting point.",
+  },
+  {
     icon: Zap,
-    title: "AI-Powered Matching",
-    description: "Our algorithms analyze your spending patterns to find cards that maximize your rewards.",
+    title: "Personalized, Not Personal",
+    description: "We tailor suggestions based on the preferences you share without collecting sensitive financial data.",
   },
   {
     icon: Shield,
@@ -13,13 +18,8 @@ const features = [
   },
   {
     icon: Users,
-    title: "Real User Reviews",
-    description: "See what actual cardholders say about their experience with each card.",
-  },
-  {
-    icon: Award,
-    title: "Expert Analysis",
-    description: "Our team of financial experts reviews and rates every card we feature.",
+    title: "Aggregated Reviews",
+    description: "We distill user and expert insights so you can quickly see each card's pros and cons.",
   },
 ];
 
@@ -34,7 +34,7 @@ const StatsSection = () => {
               Why trust CardWise?
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              We've helped millions of people find the right credit card for their needs.
+              We use AI and real-world data to help you quickly compare credit cards—but we always encourage you to double-check the details before you apply.
             </p>
           </div>
 

@@ -199,8 +199,12 @@ const parseStep5 = (content: string): Step5Data | null => {
   // 5 highlights: <h1>, <h2>, <h3>, <h4>, <h5>
   // (repeated 3 times)
   
-  // Extract intro from "Response:"
-  const responseMatch = content.match(/Response:\s*(.+?)(?:\n\s*Credit Card Name:|$)/is);
+  // Handle both formatted (with newlines) and unformatted (all text together) responses
+  // First, try to normalize by adding spaces before field labels if they're missing
+  // This helps when text runs together like "description: text URL: http://..."
+  
+  // Extract intro from "Response:" - handle both newline and space-separated formats
+  const responseMatch = content.match(/Response:\s*(.+?)(?:\s+Credit Card Name:|$)/is);
   const intro = responseMatch?.[1]?.trim() || '';
   
   if (!intro) {
@@ -208,42 +212,54 @@ const parseStep5 = (content: string): Step5Data | null => {
   }
   
   // Split content by "Credit Card Name:" to get individual cards
+  // Handle both newline and space-separated formats
   const cardSections = content.split(/Credit Card Name:/i).filter(section => section.trim());
   
-  // Remove the first section if it's just the Response intro
+  // Skip the first section as it contains the "Response:" intro
+  // Process only sections that contain card data (starting from index 1)
   const cards: CreditCard[] = [];
   
-  for (let i = 0; i < cardSections.length; i++) {
+  for (let i = 1; i < cardSections.length; i++) {
     const section = cardSections[i].trim();
     if (!section) continue;
     
-    // Extract card name (first line or until URL:)
-    const nameMatch = section.match(/^(.+?)(?:\n\s*URL:|$)/is);
+    // Extract card name - handle both newline and space-separated formats
+    // Name is everything until "URL:" (with optional newline or space before URL:)
+    const nameMatch = section.match(/^(.+?)(?:\s+URL:|$)/is);
     const name = nameMatch?.[1]?.trim() || '';
     
-    // Extract URL
+    // Extract URL - handle both newline and space-separated formats
     const urlMatch = section.match(/URL:\s*(https?:\/\/[^\s]+)/i);
     const url = urlMatch?.[1]?.trim() || '';
     
-    // Extract 1 sentence description
-    const descMatch = section.match(/1 sentence description:\s*(.+?)(?:\n\s*(?:2 highlights|5 highlights|Credit Card Name):|$)/is);
+    // Extract 1 sentence description - handle both newline and space-separated formats
+    // Look for "1 sentence description:" followed by text until "2 highlights", "5 highlights", or "Credit Card Name"
+    const descMatch = section.match(/1 sentence description:\s*(.+?)(?:\s+(?:2 highlights|5 highlights|Credit Card Name):|$)/is);
     const description = descMatch?.[1]?.trim() || '';
     
-    // Extract 2 highlights
-    const highlights2Match = section.match(/2 highlights:\s*(.+?)(?:\n\s*(?:5 highlights|Credit Card Name):|$)/is);
+    // Extract 2 highlights - handle both newline and space-separated formats
+    // Look for "2 highlights:" followed by text until "5 highlights" or "Credit Card Name"
+    const highlights2Match = section.match(/2 highlights:\s*(.+?)(?:\s+(?:5 highlights|Credit Card Name):|$)/is);
     let highlights2: string[] = [];
     if (highlights2Match) {
       const highlightsText = highlights2Match[1]?.trim() || '';
-      // Split by comma or newline
-      highlights2 = highlightsText.split(/[,\n]/).map(h => h.trim()).filter(h => h.length > 0);
+      // Split by semicolon, comma, or newline - semicolons are common in the unformatted version
+      highlights2 = highlightsText.split(/[;,\n]/).map(h => h.trim()).filter(h => h.length > 0);
     }
     
-    // Extract 5 highlights (optional)
-    const highlights5Match = section.match(/5 highlights:\s*(.+?)(?:\n\s*Credit Card Name:|$)/is);
+    // Extract 5 highlights (optional) - handle both newline and space-separated formats
+    // Look for "5 highlights:" followed by text until "Credit Card Name" or end
+    const highlights5Match = section.match(/5 highlights:\s*(.+?)(?:\s+Credit Card Name:|$)/is);
     let highlights5: string[] = [];
     if (highlights5Match) {
       const highlightsText = highlights5Match[1]?.trim() || '';
-      highlights5 = highlightsText.split(/[,\n]/).map(h => h.trim()).filter(h => h.length > 0);
+      // Split by semicolon, comma, or newline - semicolons are common in the unformatted version
+      highlights5 = highlightsText.split(/[;,\n]/).map(h => h.trim()).filter(h => h.length > 0);
+      // Limit to 5 highlights max to avoid capturing conclusion text that might be mixed in
+      // Conclusion text typically doesn't follow the semicolon pattern
+      if (highlights5.length > 5) {
+        highlights5 = highlights5.slice(0, 5);
+      }
     }
     
     if (name && url && description && highlights2.length >= 2) {
@@ -396,28 +412,36 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
 
   // Initialize with initial question if provided
   useEffect(() => {
-    if (initialQuestion && initialQuestion !== processedInitialQuestionRef.current && messages.length === 0) {
-      // Only process if we haven't processed this question and there are no messages
-      isInitializingRef.current = true;
-      processedInitialQuestionRef.current = initialQuestion;
-      // Use a small delay to ensure component is fully mounted, then send message
-      // handleSendMessage will set loading state internally
-      const timer = setTimeout(() => {
-        handleSendMessage(initialQuestion);
-      }, 0);
-      return () => clearTimeout(timer);
-    } else if (initialQuestion && initialQuestion !== processedInitialQuestionRef.current && messages.length > 0) {
-      // Reset conversation if a new initial question is provided
-      isInitializingRef.current = true;
-      processedInitialQuestionRef.current = initialQuestion;
+    // Skip if no initial question or if we've already processed this question
+    if (!initialQuestion || initialQuestion === processedInitialQuestionRef.current) {
+      return;
+    }
+
+    // Mark that we're processing this question
+    const questionToProcess = initialQuestion;
+    processedInitialQuestionRef.current = questionToProcess;
+    isInitializingRef.current = true;
+
+    // Check if we need to reset (if there are existing messages)
+    const needsReset = messages.length > 0;
+    
+    if (needsReset) {
+      // Reset conversation state first
       setMessages([]);
       setConversationHistory([]);
       setConversationId(undefined);
       setSuggestedQuestions([]);
-      // Use setTimeout to ensure state is reset before sending new message
-      // handleSendMessage will set loading state internally
+      
+      // Wait a bit for state to reset, then send message
+      const resetTimer = setTimeout(() => {
+        isInitializingRef.current = true;
+        handleSendMessage(questionToProcess);
+      }, 50);
+      return () => clearTimeout(resetTimer);
+    } else {
+      // No existing messages, send immediately
       const timer = setTimeout(() => {
-        handleSendMessage(initialQuestion);
+        handleSendMessage(questionToProcess);
       }, 0);
       return () => clearTimeout(timer);
     }
@@ -555,10 +579,18 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
     <div className="w-full flex flex-col h-full">
       {/* Messages Container */}
       <div className={`flex-1 space-y-6 mb-8 ${isLoading ? 'overflow-hidden' : 'overflow-y-auto'}`}>
-        {messages.length === 0 && !initialQuestion && !isLoading && !isInitializingRef.current && (
+        {messages.length === 0 && !initialQuestion && !isLoading && (
           <div className="text-center text-muted-foreground py-8">
             <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50" />
             <p>Ask me anything about credit cards!</p>
+          </div>
+        )}
+        
+        {/* Show loading state when initialQuestion is set but no messages yet (before AnimatedCreditCard appears) */}
+        {messages.length === 0 && initialQuestion && !isLoading && (
+          <div className="text-center text-muted-foreground py-8">
+            <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50 animate-pulse" />
+            <p>Preparing your question...</p>
           </div>
         )}
 

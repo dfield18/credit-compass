@@ -1,47 +1,17 @@
-import { Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const footerLinks = {
-  Product: ["Credit Cards", "Compare Cards", "Best Cards", "Reviews"],
-  Resources: ["Guides", "Calculator", "Blog", "FAQ"],
-  Company: ["About Us", "Careers", "Press", "Contact"],
-  Legal: ["Privacy Policy", "Terms of Service", "Disclosures"],
+  Guides: ["Credit Card Basics", "How to Choose", "Rewards Guide", "Travel Cards"],
+  Resources: ["Calculator", "Blog", "FAQ", "Compare Cards"],
+  About: ["About Us", "Contact", "Privacy Policy", "Terms of Service"],
 };
 
 const Footer = () => {
   return (
     <footer className="bg-foreground text-background/80">
-      {/* Newsletter Section */}
-      <div className="border-b border-background/10">
-        <div className="container mx-auto px-4 py-12">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="font-display text-xl font-medium text-background mb-2">
-                Stay in the loop
-              </h3>
-              <p className="text-background/60 text-sm">
-                Get the latest credit card offers and tips delivered to your inbox.
-              </p>
-            </div>
-            <div className="flex w-full md:w-auto gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 md:w-64 px-4 py-2.5 rounded-lg bg-background/10 border border-background/20 text-background placeholder:text-background/40 focus:outline-none focus:border-background/40"
-              />
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg">
-                <Mail className="w-4 h-4 mr-2" />
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <a href="/" className="flex items-center gap-2 mb-4">
@@ -82,7 +52,7 @@ const Footer = () => {
           {/* Bottom */}
           <div className="mt-12 pt-8 border-t border-background/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-xs text-background/40">
-              © 2024 CardWise. All rights reserved.
+              © 2026 YourBestCard. All rights reserved.
             </p>
             <p className="text-xs text-background/40 text-center sm:text-right max-w-lg">
               CardWise may receive compensation from card issuers. Opinions are our own.

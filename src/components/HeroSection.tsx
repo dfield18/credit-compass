@@ -83,20 +83,22 @@ const HeroSection = () => {
                   </button>
                 ))}
               </div>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                {[
-                  { text: "I'm 40 and make $200k a year and want to travel more", icon: "✈️" },
-                  { text: "I'm almost retired and love dining out", icon: "🍽️" }
-                ].map((item) => (
+              <div className="flex flex-wrap items-center justify-center gap-2 w-full max-w-4xl mx-auto">
+                <div className="flex items-center gap-2 -ml-[40px]">
+                  <span className="text-sm text-muted-foreground">Very Specific:</span>
                   <button
-                    key={item.text}
-                    onClick={() => handleTagClick(item.text)}
-                    className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer flex items-center gap-1.5"
+                    onClick={() => handleTagClick("I'm 40 and make $200k a year and want to travel more")}
+                    className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer"
                   >
-                    <span>{item.icon}</span>
-                    <span>{item.text}</span>
+                    I'm 40 and make $200k a year and want to travel more
                   </button>
-                ))}
+                </div>
+                <button
+                  onClick={() => handleTagClick("I'm almost retired and love dining out")}
+                  className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer ml-[20px]"
+                >
+                  I'm almost retired and love dining out
+                </button>
               </div>
             </div>
           </div>

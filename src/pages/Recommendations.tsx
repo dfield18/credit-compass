@@ -10,7 +10,16 @@ const Recommendations = () => {
   // Initialize directly from search params to avoid flickering
   const initialQuestion = useMemo(() => {
     const query = searchParams.get("q");
-    return query ? decodeURIComponent(query) : undefined;
+    if (!query) return undefined;
+    
+    try {
+      // Decode the query parameter, handling potential encoding issues
+      return decodeURIComponent(query);
+    } catch (error) {
+      // If decoding fails, try using the raw query
+      console.error('Error decoding query parameter:', error);
+      return query;
+    }
   }, [searchParams]);
 
   return (

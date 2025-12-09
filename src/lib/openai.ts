@@ -34,6 +34,7 @@ Generate ${count} follow-up questions that are:
 1. Relevant to the conversation
 2. Specific and actionable
 3. Natural and conversational
+4. Maximum 18 words each
 
 For each question, also suggest a single emoji icon that best represents the question topic (e.g., ✈️ for travel, 💳 for credit cards, 💰 for cash back, 🎁 for rewards, etc.).
 
@@ -87,13 +88,32 @@ Return ONLY valid JSON, no other text.`;
       const parsed = JSON.parse(content);
       const questions = parsed.questions || parsed.results || [];
       
+      // Helper function to count words
+      const countWords = (text: string): number => {
+        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+      };
+
+      // Helper function to truncate to 18 words
+      const truncateTo18Words = (text: string): string => {
+        const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+        if (words.length <= 18) return text.trim();
+        return words.slice(0, 18).join(' ') + '...';
+      };
+
       // Validate and format the questions
       const formatted = questions
         .filter((q: any) => q && q.question && q.icon)
-        .map((q: any) => ({
-          question: q.question.trim(),
-          icon: q.icon.trim(),
-        }))
+        .map((q: any) => {
+          const question = q.question.trim();
+          // Truncate to 18 words if needed
+          const truncatedQuestion = countWords(question) > 18 
+            ? truncateTo18Words(question) 
+            : question;
+          return {
+            question: truncatedQuestion,
+            icon: q.icon.trim(),
+          };
+        })
         .slice(0, count);
 
       return formatted.length > 0 ? formatted : getDefaultSuggestedQuestions();
