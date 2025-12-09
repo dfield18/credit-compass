@@ -704,10 +704,12 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
             </div>
-            <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
-              <div className="flex items-center gap-2">
-                <Loader2 className="w-5 h-5 text-mint animate-spin" />
-                <span className="text-muted-foreground">Thinking...</span>
+            <div className="flex-1">
+              <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-5 h-5 text-mint animate-spin" />
+                  <span className="text-muted-foreground">Thinking...</span>
+                </div>
               </div>
             </div>
           </div>
