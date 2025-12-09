@@ -543,7 +543,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                   <p className="text-foreground">{message.content}</p>
                 </div>
               ) : (
-                <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
+                <div className="w-full bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
                   {(() => {
                     const parsed = parseStepResponse(message.content);
                     if (parsed.hasSteps && parsed.steps.length > 0) {
@@ -704,8 +704,8 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
             </div>
-            <div className="min-w-0">
-              <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
+            <div className="w-full min-w-0">
+              <div className="w-full min-w-[600px] bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
                 <div className="flex items-center gap-2">
                   <Loader2 className="w-5 h-5 text-mint animate-spin" />
                   <span className="text-muted-foreground">Thinking...</span>
