@@ -515,9 +515,9 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="w-full flex flex-col h-full">
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto space-y-6 mb-8">
+      <div className="w-full flex-1 overflow-y-auto space-y-6 mb-8">
         {messages.length === 0 && !initialQuestion && !isLoading && !isInitializingRef.current && (
           <div className="text-center text-muted-foreground py-8">
             <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50" />
@@ -528,7 +528,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}
+            className={`w-full flex gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}
           >
             {message.role === 'assistant' && (
               <div className="flex-shrink-0">
@@ -698,7 +698,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         ))}
 
         {isLoading && (
-          <div className="flex gap-4">
+          <div className="w-full flex gap-4">
             <div className="flex-shrink-0">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mint to-coral flex items-center justify-center shadow-soft">
                 <Sparkles className="w-5 h-5 text-white" />
@@ -717,7 +717,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
 
         {/* Suggested Questions */}
         {suggestedQuestions.length > 0 && !isLoading && (
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-soft">
+          <div className="w-full bg-card border border-border rounded-2xl p-6 shadow-soft">
             <p className="text-foreground mb-4">You might also want to ask:</p>
             <div className="flex flex-wrap gap-2">
               {suggestedQuestions.map((question, index) => (
