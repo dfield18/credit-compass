@@ -45,7 +45,7 @@ const HeroSection = () => {
           
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Compare 500+ cards across rewards, cashback, and travel benefits. 
+            Compare 350+ cards across rewards, cashback, and travel benefits. 
             Get personalized recommendations in seconds.
           </p>
           
@@ -111,7 +111,7 @@ const HeroSection = () => {
         <div className="max-w-3xl mx-auto mt-16 pt-12 border-t border-border">
           <div className="grid grid-cols-3 gap-8 text-center">
             <div>
-              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">300+</div>
+              <div className="font-display text-3xl sm:text-4xl font-medium text-foreground">350+</div>
               <div className="text-sm text-muted-foreground mt-1">Cards Analyzed</div>
             </div>
             <div>
