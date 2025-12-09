@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Credit Cards", href: "#" },
+    { label: "Credit Cards", href: "/" },
     { label: "Compare", href: "#" },
-    { label: "Guides", href: "#" },
-    { label: "Reviews", href: "#" },
+    { label: "Guides", href: "/guides" },
+    { label: "Reviews", href: "/reviews" },
   ];
 
   return (
@@ -28,15 +29,22 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors link-underline"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const isRoute = item.href.startsWith("/");
+              const LinkComponent = isRoute ? Link : "a";
+              const linkProps = isRoute 
+                ? { to: item.href } 
+                : { href: item.href };
+              return (
+                <LinkComponent
+                  key={item.label}
+                  {...linkProps}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors link-underline"
+                >
+                  {item.label}
+                </LinkComponent>
+              );
+            })}
           </nav>
 
 
@@ -53,15 +61,22 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col gap-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const isRoute = item.href.startsWith("/");
+                const LinkComponent = isRoute ? Link : "a";
+                const linkProps = isRoute 
+                  ? { to: item.href } 
+                  : { href: item.href };
+                return (
+                  <LinkComponent
+                    key={item.label}
+                    {...linkProps}
+                    className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
+                  >
+                    {item.label}
+                  </LinkComponent>
+                );
+              })}
             </nav>
           </div>
         )}

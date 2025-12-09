@@ -1,8 +1,25 @@
+import { Link } from "react-router-dom";
 
 const footerLinks = {
-  Guides: ["Credit Card Basics", "How to Choose", "Rewards Guide", "Travel Cards"],
-  Resources: ["Calculator", "Blog", "FAQ", "Compare Cards"],
+  Guides: ["Credit Card Basics", "How to Choose", "Rewards Guide"],
+  Resources: ["Reviews"],
   About: ["About Us", "Contact", "Privacy Policy", "Terms of Service"],
+};
+
+const guideRoutes: Record<string, string> = {
+  "Credit Card Basics": "/guides/credit-card-basics",
+  "How to Choose": "/guides/how-to-choose",
+  "Rewards Guide": "/guides/rewards-guide",
+};
+
+const resourcesRoutes: Record<string, string> = {
+  "Reviews": "/reviews",
+};
+
+const aboutRoutes: Record<string, string> = {
+  "About Us": "/about-us",
+  "Privacy Policy": "/privacy-policy",
+  "Terms of Service": "/terms-of-service",
 };
 
 const Footer = () => {
@@ -34,16 +51,36 @@ const Footer = () => {
                   {category}
                 </h4>
                 <ul className="space-y-2.5">
-                  {links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#"
-                        className="text-sm text-background/50 hover:text-background transition-colors"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ))}
+                  {links.map((link) => {
+                    // Check if this is a guide link that should use React Router
+                    const isGuideLink = category === "Guides" && guideRoutes[link];
+                    // Check if this is a Resources link that should use React Router
+                    const isResourcesLink = category === "Resources" && resourcesRoutes[link];
+                    // Check if this is an About link that should use React Router
+                    const isAboutLink = category === "About" && aboutRoutes[link];
+                    const isRoute = isGuideLink || isResourcesLink || isAboutLink;
+                    const LinkComponent = isRoute ? Link : "a";
+                    const linkProps = isRoute 
+                      ? { 
+                          to: isGuideLink 
+                            ? guideRoutes[link] 
+                            : (isResourcesLink 
+                              ? resourcesRoutes[link] 
+                              : (isAboutLink ? aboutRoutes[link] : "#"))
+                        }
+                      : { href: "#" };
+                    
+                    return (
+                      <li key={link}>
+                        <LinkComponent
+                          {...linkProps}
+                          className="text-sm text-background/50 hover:text-background transition-colors"
+                        >
+                          {link}
+                        </LinkComponent>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

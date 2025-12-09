@@ -84,7 +84,7 @@ const HeroSection = () => {
                 ))}
               </div>
               <div className="flex flex-wrap items-center justify-center gap-2 w-full max-w-4xl mx-auto">
-                <div className="flex items-center gap-2 -ml-[40px]">
+                <div className="flex items-center gap-2 -ml-[48px]">
                   <span className="text-sm text-muted-foreground">Very Specific:</span>
                   <button
                     onClick={() => handleTagClick("I'm 40 and make $200k a year and want to travel more")}
@@ -100,6 +100,9 @@ const HeroSection = () => {
                   I'm almost retired and love dining out
                 </button>
               </div>
+              <p className="text-xs text-muted-foreground mt-4 max-w-2xl mx-auto text-center">
+                Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it doesn't influence our recommendations.
+              </p>
             </div>
           </div>
         </div>

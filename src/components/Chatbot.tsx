@@ -769,6 +769,9 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                       );
                     }
                   })()}
+                  <p className="text-sm text-muted-foreground mt-6">
+                    We do our best to keep credit card info current, but details can change quickly. Always check the issuer's terms before you apply.
+                  </p>
                 </div>
               )}
             </div>
@@ -798,6 +801,9 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                 </button>
               ))}
             </div>
+            <p className="text-xs text-muted-foreground mt-4 max-w-2xl">
+              Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it doesn't influence our recommendations.
+            </p>
           </div>
         )}
 
