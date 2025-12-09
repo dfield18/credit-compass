@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, Send, Loader2, BookOpen, ChevronRight } from "lucide-react";
+import { Sparkles, Send, Loader2, BookOpen, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { sendMessageToChatbase, createConversationId, type ChatbaseMessage } from "@/lib/chatbase";
-import { generateSuggestedQuestions } from "@/lib/openai";
+import { generateSuggestedQuestions, type SuggestedQuestion } from "@/lib/openai";
+import AnimatedCreditCard from "./AnimatedCreditCard";
 
 interface ChatbotProps {
   initialQuestion?: string;
@@ -371,7 +372,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
+  const [suggestedQuestions, setSuggestedQuestions] = useState<SuggestedQuestion[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [conversationHistory, setConversationHistory] = useState<ChatbaseMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -513,11 +514,26 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
     // Always navigate to recommendations page with the question
     navigate(`/recommendations?q=${encodeURIComponent(question)}`);
   };
+  
+  // Helper function to get icon background color based on icon
+  const getIconBgColor = (icon: string): string => {
+    // Different background colors for different icon types
+    if (icon.includes('✈️') || icon.includes('🌍') || icon.includes('🏖️')) {
+      return 'bg-blue-100 dark:bg-blue-900/30'; // Light blue for travel
+    } else if (icon.includes('💰') || icon.includes('💵') || icon.includes('💸')) {
+      return 'bg-yellow-100 dark:bg-yellow-900/30'; // Light yellow/gold for money
+    } else if (icon.includes('💳') || icon.includes('💎')) {
+      return 'bg-purple-100 dark:bg-purple-900/30'; // Light purple for cards
+    } else if (icon.includes('🎁') || icon.includes('⭐') || icon.includes('🏆')) {
+      return 'bg-pink-100 dark:bg-pink-900/30'; // Light pink for rewards
+    }
+    return 'bg-mint-light dark:bg-mint/20'; // Default mint color
+  };
 
   return (
     <div className="w-full flex flex-col h-full">
       {/* Messages Container */}
-      <div className="w-full flex-1 overflow-y-auto space-y-6 mb-8">
+      <div className={`flex-1 space-y-6 mb-8 ${isLoading ? 'overflow-hidden' : 'overflow-y-auto'}`}>
         {messages.length === 0 && !initialQuestion && !isLoading && !isInitializingRef.current && (
           <div className="text-center text-muted-foreground py-8">
             <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50" />
@@ -698,38 +714,34 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         ))}
 
         {isLoading && (
-          <div className="grid grid-cols-[auto_1fr] gap-4 w-full">
-            <div className="flex-shrink-0">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mint to-coral flex items-center justify-center shadow-soft">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-            </div>
-            <div className="min-w-0">
-              <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
-                <div className="flex items-center gap-2">
-                  <Loader2 className="w-5 h-5 text-mint animate-spin" />
-                  <span className="text-muted-foreground">Thinking...</span>
-                </div>
-              </div>
-            </div>
+          <div className="flex justify-center">
+            <AnimatedCreditCard />
           </div>
         )}
 
         {/* Suggested Questions */}
         {suggestedQuestions.length > 0 && !isLoading && (
-          <div className="w-full bg-card border border-border rounded-2xl p-6 shadow-soft">
-            <p className="text-foreground mb-4">You might also want to ask:</p>
-            <div className="flex flex-wrap gap-2">
-              {suggestedQuestions.map((question, index) => (
-                <Button
+          <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                You might also ask
+              </h3>
+              <span className="text-xs text-muted-foreground">Click to autofill</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {suggestedQuestions.map((suggestion, index) => (
+                <button
                   key={index}
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full"
-                  onClick={() => handleSuggestedQuestionClick(question)}
+                  onClick={() => handleSuggestedQuestionClick(suggestion.question)}
+                  className="group bg-white border border-border rounded-lg p-3 hover:shadow-soft hover:border-mint/30 transition-all duration-200 text-left flex items-start gap-2.5"
                 >
-                  {question}
-                </Button>
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-full ${getIconBgColor(suggestion.icon)} flex items-center justify-center text-lg`}>
+                    {suggestion.icon}
+                  </div>
+                  <p className="flex-1 text-xs text-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
+                    {suggestion.question}
+                  </p>
+                </button>
               ))}
             </div>
           </div>
@@ -739,7 +751,8 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
       </div>
 
       {/* Input Area */}
-      <form onSubmit={handleSubmit} className="sticky bottom-0 bg-background/80 backdrop-blur-xl pt-4 pb-6 border-t border-border">
+      {!isLoading && (
+        <form onSubmit={handleSubmit} className="sticky bottom-0 bg-background/80 backdrop-blur-xl pt-4 pb-6 border-t border-border">
         <div className="relative">
           <input
             ref={inputRef}
@@ -764,6 +777,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
           </Button>
         </div>
       </form>
+      )}
     </div>
   );
 };
