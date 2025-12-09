@@ -528,7 +528,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}
+            className={`w-full flex gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}
           >
             {message.role === 'assistant' && (
               <div className="flex-shrink-0">
@@ -698,7 +698,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         ))}
 
         {isLoading && (
-          <div className="flex gap-4">
+          <div className="w-full flex gap-4">
             <div className="flex-shrink-0">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mint to-coral flex items-center justify-center shadow-soft">
                 <Sparkles className="w-5 h-5 text-white" />
