@@ -265,12 +265,17 @@ const parseStep5 = (content: string): Step5Data | null => {
 };
 
 const parseStepResponse = (response: string): ParsedResponse => {
-  // Check if response contains step patterns (Step 1, Step 2, STEP 1, STEP 2, etc.)
-  // Match "Step X" or "STEP X" followed by optional separator and content
-  // Pattern: Match Step/STEP at start of string or after newline, followed by number, then separator, then content
-  let stepPattern = /(?:^|\n)(Step\s*(\d+)|STEP\s*(\d+))[:\s\-\.]+\s*(.+?)(?=\n(?:Step\s*\d+|STEP\s*\d+)|$)/gis;
-  
-  let matches = Array.from(response.matchAll(stepPattern));
+  try {
+    if (!response || typeof response !== 'string') {
+      return { hasSteps: false, steps: [] };
+    }
+    
+    // Check if response contains step patterns (Step 1, Step 2, STEP 1, STEP 2, etc.)
+    // Match "Step X" or "STEP X" followed by optional separator and content
+    // Pattern: Match Step/STEP at start of string or after newline, followed by number, then separator, then content
+    let stepPattern = /(?:^|\n)(Step\s*(\d+)|STEP\s*(\d+))[:\s\-\.]+\s*(.+?)(?=\n(?:Step\s*\d+|STEP\s*\d+)|$)/gis;
+    
+    let matches = Array.from(response.matchAll(stepPattern));
   
   // If no matches, try a more flexible pattern (without requiring newline before next step)
   if (matches.length === 0) {
@@ -359,11 +364,15 @@ const parseStepResponse = (response: string): ParsedResponse => {
     };
   }
 
-  return {
-    hasSteps: true,
-    intro,
-    steps,
-  };
+    return {
+      hasSteps: true,
+      intro,
+      steps,
+    };
+  } catch (error) {
+    console.error('Error in parseStepResponse:', error);
+    return { hasSteps: false, steps: [] };
+  }
 };
 
 const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) => {
@@ -457,9 +466,16 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         updatedHistory
       );
 
+      console.log('Chatbase response received:', response);
+
       // Update conversation ID if returned from API
       if (response.conversationId && response.conversationId !== currentConversationId) {
         setConversationId(response.conversationId);
+      }
+
+      if (!response.answer) {
+        console.error('No answer in response:', response);
+        throw new Error('No answer received from API');
       }
 
       const assistantMessage: Message = {
@@ -468,7 +484,12 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, assistantMessage]);
+      console.log('Adding assistant message:', assistantMessage);
+      setMessages((prev) => {
+        const newMessages = [...prev, assistantMessage];
+        console.log('Updated messages:', newMessages);
+        return newMessages;
+      });
       
       // Update conversation history with assistant response
       const finalHistory: ChatbaseMessage[] = [
@@ -561,8 +582,9 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
               ) : (
                 <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
                   {(() => {
-                    const parsed = parseStepResponse(message.content);
-                    if (parsed.hasSteps && parsed.steps.length > 0) {
+                    try {
+                      const parsed = parseStepResponse(message.content);
+                      if (parsed.hasSteps && parsed.steps.length > 0) {
                       return (
                         <div className="space-y-6">
                           {parsed.intro && (
@@ -706,6 +728,14 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                         {message.content}
                       </p>
                     );
+                    } catch (error) {
+                      console.error('Error parsing message:', error);
+                      return (
+                        <p className="text-foreground whitespace-pre-wrap leading-relaxed">
+                          {message.content}
+                        </p>
+                      );
+                    }
                   })()}
                 </div>
               )}
@@ -721,26 +751,18 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
 
         {/* Suggested Questions */}
         {suggestedQuestions.length > 0 && !isLoading && (
-          <div className="bg-card border border-border rounded-2xl p-4 shadow-soft">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                You might also ask
-              </h3>
-              <span className="text-xs text-muted-foreground">Click to autofill</span>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-sm font-medium text-muted-foreground">You might also ask:</span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="flex flex-col gap-2">
               {suggestedQuestions.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => handleSuggestedQuestionClick(suggestion.question)}
-                  className="group bg-white border border-border rounded-lg p-3 hover:shadow-soft hover:border-mint/30 transition-all duration-200 text-left flex items-start gap-2.5"
+                  className="inline-flex items-center px-4 py-2.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-all duration-200 cursor-pointer hover:shadow-sm w-fit"
                 >
-                  <div className={`flex-shrink-0 w-8 h-8 rounded-full ${getIconBgColor(suggestion.icon)} flex items-center justify-center text-lg`}>
-                    {suggestion.icon}
-                  </div>
-                  <p className="flex-1 text-xs text-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
-                    {suggestion.question}
-                  </p>
+                  {suggestion.question}
                 </button>
               ))}
             </div>

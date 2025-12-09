@@ -70,17 +70,34 @@ const HeroSection = () => {
             </form>
             
             {/* Quick links */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
-              <span className="text-sm text-muted-foreground">Popular:</span>
-              {["Cash Back", "Travel", "No Annual Fee", "0% APR"].map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => handleTagClick(tag)}
-                  className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer"
-                >
-                  {tag}
-                </button>
-              ))}
+            <div className="flex flex-col items-center justify-center gap-3 mt-6">
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="text-sm text-muted-foreground">Popular:</span>
+                {["Cash Back", "Travel", "No Annual Fee", "0% APR"].map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => handleTagClick(tag)}
+                    className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer"
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {[
+                  { text: "I'm 40 and make $200k a year and want to travel more", icon: "✈️" },
+                  { text: "I'm almost retired and love dining out", icon: "🍽️" }
+                ].map((item) => (
+                  <button
+                    key={item.text}
+                    onClick={() => handleTagClick(item.text)}
+                    className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer flex items-center gap-1.5"
+                  >
+                    <span>{item.icon}</span>
+                    <span>{item.text}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
