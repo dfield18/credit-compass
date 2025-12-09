@@ -537,13 +537,13 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                 </div>
               </div>
             )}
-            <div className={`min-w-0 ${message.role === 'user' ? 'max-w-md' : ''}`}>
+            <div className={`w-full min-w-0 ${message.role === 'user' ? 'max-w-md' : ''}`}>
               {message.role === 'user' ? (
                 <div className="bg-mint/10 border border-mint/20 rounded-2xl rounded-br-md px-5 py-4">
                   <p className="text-foreground">{message.content}</p>
                 </div>
               ) : (
-                <div className="w-full bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
+                <div className="w-full min-w-[600px] bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
                   {(() => {
                     const parsed = parseStepResponse(message.content);
                     if (parsed.hasSteps && parsed.steps.length > 0) {
