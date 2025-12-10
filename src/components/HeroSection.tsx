@@ -86,7 +86,7 @@ const HeroSection = () => {
                 ))}
               </div>
               <div className="flex flex-col items-start md:items-center justify-start md:justify-center gap-2 w-full max-w-4xl mx-auto">
-                <div className="flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start gap-2 w-full md:-ml-[48px]">
+                <div className="flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center gap-2 w-full">
                   <span className="text-xs sm:text-sm text-muted-foreground">Very Specific:</span>
                   <button
                     onClick={() => handleTagClick("I'm 40 and make $200k a year and want to travel more")}
@@ -95,7 +95,7 @@ const HeroSection = () => {
                     I'm 40 and make $200k a year and want to travel more
                   </button>
                 </div>
-                <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-2 md:ml-[20px]">
+                <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-2">
                   <button
                     onClick={() => handleTagClick("I'm almost retired and love dining out")}
                     className="px-2.5 py-1 md:px-3 md:py-1.5 text-xs sm:text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer whitespace-nowrap"

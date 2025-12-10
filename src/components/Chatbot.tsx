@@ -401,13 +401,50 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [conversationHistory, setConversationHistory] = useState<ChatbaseMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const userMessageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
   const processedInitialQuestionRef = useRef<string | null>(null);
   const isInitializingRef = useRef<boolean>(false);
 
-  // Scroll to bottom when messages change
+  // Scroll behavior: scroll to user's most recent question when assistant responds (both desktop and mobile)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messages.length > 0) {
+      // Find the last user message index
+      let lastUserMessageIndex = -1;
+      for (let i = messages.length - 1; i >= 0; i--) {
+        if (messages[i].role === 'user') {
+          lastUserMessageIndex = i;
+          break;
+        }
+      }
+      
+      // If we have a user message and the last message is from assistant, scroll page so entire user question is visible
+      if (lastUserMessageIndex >= 0 && messages[messages.length - 1].role === 'assistant') {
+        const userMessageElement = userMessageRefs.current.get(lastUserMessageIndex);
+        if (userMessageElement) {
+          // Use setTimeout to ensure DOM is updated
+          setTimeout(() => {
+            if (userMessageElement) {
+              // Get the header height (sticky header)
+              const header = document.querySelector('header');
+              const headerHeight = header ? header.getBoundingClientRect().height : 64;
+              
+              // Calculate position to ensure entire user message is visible
+              const elementRect = userMessageElement.getBoundingClientRect();
+              const elementTop = elementRect.top + window.pageYOffset;
+              const padding = 16; // Extra padding for spacing
+              
+              // Scroll so the user message starts just below the header with padding
+              window.scrollTo({ 
+                top: elementTop - headerHeight - padding, 
+                behavior: "smooth" 
+              });
+            }
+          }, 150);
+        }
+      }
+    }
   }, [messages]);
 
   // Initialize with initial question if provided
@@ -578,7 +615,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   return (
     <div className="w-full flex flex-col h-full">
       {/* Messages Container */}
-      <div className={`flex-1 space-y-4 md:space-y-6 mb-6 md:mb-8 ${isLoading ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+      <div ref={messagesContainerRef} className={`flex-1 space-y-4 md:space-y-6 mb-6 md:mb-8 ${isLoading ? 'overflow-hidden' : 'overflow-y-auto'}`}>
         {messages.length === 0 && !initialQuestion && !isLoading && (
           <div className="text-center text-muted-foreground py-6 md:py-8">
             <Sparkles className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 text-mint/50" />
@@ -597,6 +634,10 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         {messages.map((message, index) => (
           <div
             key={index}
+            ref={message.role === 'user' ? (el) => {
+              if (el) userMessageRefs.current.set(index, el);
+              else userMessageRefs.current.delete(index);
+            } : undefined}
             className={`w-full ${message.role === 'user' ? 'flex justify-end' : 'grid grid-cols-[auto_1fr] gap-2 md:gap-4'}`}
           >
             {message.role === 'assistant' && (
