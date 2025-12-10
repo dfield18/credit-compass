@@ -58,85 +58,87 @@ const cards = [
 
 const FeaturedCardsSection = () => {
   return (
-    <section className="py-20">
+    <section className="py-12 md:py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="mb-10">
-            <span className="tag-accent mb-3">Editor's picks</span>
-            <h2 className="font-display text-3xl sm:text-4xl font-medium text-foreground">
+          <div className="mb-6 md:mb-10">
+            <span className="tag-accent mb-2 md:mb-3 text-xs md:text-sm">Editor's picks</span>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground">
               Top rated cards
             </h2>
           </div>
 
           {/* Cards List */}
-          <div className="space-y-5">
+          <div className="space-y-2 md:space-y-5">
             {cards.map((card) => (
               <div
                 key={card.name}
-                className={`group relative bg-card rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-elevated hover:border-primary/20 ${
+                className={`group relative bg-card rounded-xl md:rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-elevated hover:border-primary/20 ${
                   card.featured ? "border-primary/30 shadow-card" : "border-border"
                 }`}
               >
                 {card.featured && (
-                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-medium px-3 py-1.5 rounded-bl-lg z-10">
+                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-medium px-2.5 py-1 md:px-3 md:py-1.5 rounded-bl-lg z-10">
                     Best Overall
                   </div>
                 )}
                 
-                <div className="flex flex-col lg:flex-row">
+                <div className="flex flex-row lg:flex-row">
                   {/* Card Visual */}
-                  <div className="lg:w-64 p-7 flex items-center justify-center bg-muted/30">
-                    <div className={`w-44 h-28 rounded-xl bg-gradient-to-br ${card.gradient} shadow-lg transform group-hover:scale-105 group-hover:-rotate-2 transition-all duration-300 p-4 flex flex-col justify-between`}>
-                      <div className="text-white/90 text-xs font-medium">{card.issuer}</div>
+                  <div className="w-32 md:w-auto lg:w-64 p-2 md:p-7 flex items-center justify-center bg-muted/30 flex-shrink-0">
+                    <div className={`w-28 h-16 md:w-44 md:h-28 rounded-lg md:rounded-xl bg-gradient-to-br ${card.gradient} shadow-lg transform group-hover:scale-105 group-hover:-rotate-2 transition-all duration-300 p-2 md:p-4 flex flex-col justify-between`}>
+                      <div className="text-white/90 text-[10px] md:text-xs font-medium">{card.issuer}</div>
                       <div className="flex justify-between items-end">
-                        <div className="flex gap-1">
+                        <div className="flex gap-0.5 md:gap-1">
                           {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="w-6 h-1 rounded-full bg-white/40" />
+                            <div key={i} className="w-3 h-0.5 md:w-6 md:h-1 rounded-full bg-white/40" />
                           ))}
                         </div>
-                        <div className="w-8 h-6 rounded bg-white/30" />
+                        <div className="w-5 h-3 md:w-8 md:h-6 rounded bg-white/30" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Card Info */}
-                  <div className="flex-1 p-7">
-                    <div className="flex flex-col h-full">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className="tag">{card.category}</span>
-                      </div>
-                      <h3 className="font-display text-2xl font-medium text-foreground mb-3.5">
-                        {card.name}
-                      </h3>
-                      
-                      {/* Highlights */}
-                      <div className="flex items-center gap-6 mb-5">
-                        {card.highlights.map((highlight) => (
-                          <div key={highlight} className="flex items-center gap-2 text-sm text-muted-foreground whitespace-nowrap">
-                            <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                            <span>{highlight}</span>
+                  {/* Card Info and CTA Container */}
+                  <div className="flex-1 flex flex-col lg:flex-row">
+                    {/* Card Info */}
+                    <div className="flex-1 p-2 md:p-7">
+                      <div className="flex flex-col h-full">
+                        <div className="flex items-center gap-2 mb-1 md:mb-1.5">
+                          <span className="tag text-xs md:text-sm">{card.category}</span>
+                        </div>
+                        <h3 className="font-display text-lg md:text-2xl font-medium text-foreground mb-1 md:mb-3.5">
+                          {card.name}
+                        </h3>
+                        
+                        {/* Highlights */}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 md:gap-6 mb-2 md:mb-5">
+                          {card.highlights.map((highlight) => (
+                            <div key={highlight} className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
+                              <Check className="w-3 h-3 md:w-4 md:h-4 text-primary flex-shrink-0" />
+                              <span className="break-words">{highlight}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Stats */}
+                        <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-6 md:gap-8 text-sm mt-auto">
+                          <div>
+                            <div className="text-muted-foreground mb-0.5 md:mb-1 text-[10px] md:text-xs uppercase tracking-wide">Welcome Bonus</div>
+                            <div className="font-medium text-foreground mb-0.5 leading-tight text-xs md:text-base">{card.bonus}</div>
+                            <div className="text-[10px] md:text-xs text-primary font-medium">{card.bonusValue}</div>
                           </div>
-                        ))}
-                      </div>
-
-                      {/* Stats */}
-                      <div className="flex items-start gap-8 text-sm mt-auto">
-                        <div>
-                          <div className="text-muted-foreground mb-1 text-xs uppercase tracking-wide">Welcome Bonus</div>
-                          <div className="font-medium text-foreground mb-0.5 leading-tight">{card.bonus}</div>
-                          <div className="text-xs text-primary font-medium">{card.bonusValue}</div>
-                        </div>
-                        <div>
-                          <div className="text-muted-foreground mb-1 text-xs uppercase tracking-wide">Annual Fee</div>
-                          <div className="font-medium text-foreground mb-0.5 leading-tight">{card.annualFee}</div>
+                          <div>
+                            <div className="text-muted-foreground mb-0.5 md:mb-1 text-[10px] md:text-xs uppercase tracking-wide">Annual Fee</div>
+                            <div className="font-medium text-foreground mb-0.5 leading-tight text-xs md:text-base">{card.annualFee}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* CTA */}
-                  <div className="lg:w-48 p-5 flex items-center justify-center border-t lg:border-t-0 lg:border-l border-border bg-muted/20 flex-shrink-0">
+                    {/* CTA */}
+                    <div className="w-full lg:w-48 p-2 md:p-5 flex items-center justify-center border-t lg:border-t-0 lg:border-l border-border bg-muted/20 flex-shrink-0">
                     {(() => {
                       const cardUrls: Record<string, string> = {
                         "Chase Sapphire Preferred": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
@@ -146,17 +148,18 @@ const FeaturedCardsSection = () => {
                       };
                       const url = cardUrls[card.name];
                       return url ? (
-                        <Button asChild className="w-full lg:w-auto rounded-xl px-6 py-2.5">
+                        <Button asChild className="w-full lg:w-auto rounded-lg md:rounded-xl px-4 md:px-6 py-2 md:py-2.5 text-sm md:text-base">
                           <a href={url} target="_blank" rel="noopener noreferrer">
                             Apply Now
                           </a>
                         </Button>
                       ) : (
-                        <Button className="w-full lg:w-auto rounded-xl px-6 py-2.5">
+                        <Button className="w-full lg:w-auto rounded-lg md:rounded-xl px-4 md:px-6 py-2 md:py-2.5 text-sm md:text-base">
                           Apply Now
                         </Button>
                       );
                     })()}
+                    </div>
                   </div>
                 </div>
               </div>

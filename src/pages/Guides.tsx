@@ -36,16 +36,16 @@ const Guides = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-display font-bold text-foreground mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-3 md:mb-4">
             Credit Card Guides
           </h1>
-          <p className="text-lg text-muted-foreground mb-12">
+          <p className="text-base sm:text-lg text-muted-foreground mb-8 md:mb-12">
             Comprehensive guides to help you understand credit cards, make informed decisions, and maximize your rewards.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {guides.map((guide) => (
               <Link key={guide.href} to={guide.href}>
                 <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer group">

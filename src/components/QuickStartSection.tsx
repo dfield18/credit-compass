@@ -54,37 +54,37 @@ const QuickStartSection = () => {
   };
 
   return (
-    <section className="py-20 bg-card">
+    <section className="py-12 md:py-20 bg-card">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl sm:text-4xl font-medium text-foreground mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4">
               Browse by category
             </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto px-2">
               Not sure where to start? Explore cards by what matters most to you.
             </p>
           </div>
 
           {/* Categories Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {categories.map((category, index) => (
               <button
                 key={category.title}
                 onClick={() => handleCategoryClick(category.title)}
-                className="group flex items-start gap-4 p-5 bg-background rounded-2xl border border-border hover:border-primary/30 hover:shadow-card transition-all duration-300 text-left w-full"
+                className="group flex items-start gap-3 md:gap-4 p-4 md:p-5 bg-background rounded-xl md:rounded-2xl border border-border hover:border-primary/30 hover:shadow-card transition-all duration-300 text-left w-full"
               >
-                <div className={`w-12 h-12 rounded-xl ${category.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                  <category.icon className="w-5 h-5" />
+                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl ${category.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                  <category.icon className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="font-medium text-sm md:text-base text-foreground group-hover:text-primary transition-colors">
                       {category.title}
                     </h3>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-xs md:text-sm text-muted-foreground mt-1">
                     {category.description}
                   </p>
                 </div>

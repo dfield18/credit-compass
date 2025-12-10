@@ -5,20 +5,20 @@ const Reviews = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-display font-bold text-foreground mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-4 md:mb-8">
           The Best Credit Card Review Sites: Who to Trust and Why
           </h1>
           
           <div className="prose prose-slate dark:prose-invert max-w-none">
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 md:mb-8 leading-relaxed">
               Choosing the right credit card can feel overwhelming, especially when every site promises the "best" card for you. To make the process easier, we've pulled together a summary of the most trusted credit-card review websites on the internet—large publishers, independent experts, and niche sites that dig into specific reward strategies. Each site brings something unique: some offer deep data, others offer hands-on testing, and some specialize in maximizing travel points. Here's a look at the best places to research before you apply.
             </p>
 
-            <ol className="space-y-8 list-none pl-0">
+            <ol className="space-y-6 md:space-y-8 list-none pl-0">
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   1. NerdWallet
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -40,7 +40,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   2. The Points Guy (TPG)
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -62,7 +62,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   3. Bankrate
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -84,7 +84,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   4. Credit Karma
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -106,7 +106,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   5. CNBC Select
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -128,7 +128,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   6. Doctor of Credit
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -150,7 +150,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   7. US News Best Credit Cards
                 </h2>
                 <p className="mb-2 font-medium text-foreground">
@@ -172,7 +172,7 @@ const Reviews = () => {
               </li>
 
               <li className="space-y-2">
-                <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
+                <h2 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-2">
                   8. Forbes Advisor
                 </h2>
                 <p className="mb-2 font-medium text-foreground">

@@ -578,41 +578,41 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   return (
     <div className="w-full flex flex-col h-full">
       {/* Messages Container */}
-      <div className={`flex-1 space-y-6 mb-8 ${isLoading ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+      <div className={`flex-1 space-y-4 md:space-y-6 mb-6 md:mb-8 ${isLoading ? 'overflow-hidden' : 'overflow-y-auto'}`}>
         {messages.length === 0 && !initialQuestion && !isLoading && (
-          <div className="text-center text-muted-foreground py-8">
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50" />
-            <p>Ask me anything about credit cards!</p>
+          <div className="text-center text-muted-foreground py-6 md:py-8">
+            <Sparkles className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 text-mint/50" />
+            <p className="text-sm md:text-base">Ask me anything about credit cards!</p>
           </div>
         )}
         
         {/* Show loading state when initialQuestion is set but no messages yet (before AnimatedCreditCard appears) */}
         {messages.length === 0 && initialQuestion && !isLoading && (
-          <div className="text-center text-muted-foreground py-8">
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-mint/50 animate-pulse" />
-            <p>Preparing your question...</p>
+          <div className="text-center text-muted-foreground py-6 md:py-8">
+            <Sparkles className="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 text-mint/50 animate-pulse" />
+            <p className="text-sm md:text-base">Preparing your question...</p>
           </div>
         )}
 
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`w-full ${message.role === 'user' ? 'flex justify-end' : 'grid grid-cols-[auto_1fr] gap-4'}`}
+            className={`w-full ${message.role === 'user' ? 'flex justify-end' : 'grid grid-cols-[auto_1fr] gap-2 md:gap-4'}`}
           >
             {message.role === 'assistant' && (
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mint to-coral flex items-center justify-center shadow-soft">
-                  <Sparkles className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-mint to-coral flex items-center justify-center shadow-soft">
+                  <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-white" />
                 </div>
               </div>
             )}
-            <div className={`min-w-0 ${message.role === 'user' ? 'max-w-md' : ''}`}>
+            <div className={`min-w-0 ${message.role === 'user' ? 'max-w-[85%] md:max-w-md' : ''}`}>
               {message.role === 'user' ? (
-                <div className="bg-mint/10 border border-mint/20 rounded-2xl rounded-br-md px-5 py-4">
-                  <p className="text-foreground">{message.content}</p>
+                <div className="bg-mint/10 border border-mint/20 rounded-xl md:rounded-2xl rounded-br-md px-4 py-3 md:px-5 md:py-4">
+                  <p className="text-sm md:text-base text-foreground">{message.content}</p>
                 </div>
               ) : (
-                <div className="bg-card border border-border rounded-2xl rounded-tl-md p-6 shadow-soft">
+                <div className="bg-card border border-border rounded-xl md:rounded-2xl rounded-tl-md p-4 md:p-6 shadow-soft">
                   {(() => {
                     try {
                       const parsed = parseStepResponse(message.content);
@@ -620,35 +620,35 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                       return (
                         <div className="space-y-6">
                           {parsed.intro && (
-                            <p className="text-foreground leading-relaxed">{parsed.intro}</p>
+                            <p className="text-sm md:text-base text-foreground leading-relaxed">{parsed.intro}</p>
                           )}
-                          <div className="space-y-4">
+                          <div className="space-y-3 md:space-y-4">
                             {parsed.steps.map((step) => {
                               // Special rendering for Step 3
                               if (step.isStep3 && step.step3Data) {
                                 return (
-                                  <div key={step.number} className="space-y-5">
+                                  <div key={step.number} className="space-y-4 md:space-y-5">
                                     {/* Title */}
-                                    <h2 className="font-display font-semibold text-xl text-foreground">
+                                    <h2 className="font-display font-semibold text-lg md:text-xl text-foreground">
                                       {step.step3Data.title}
                                     </h2>
                                     
                                     {/* Description */}
-                                    <p className="text-foreground leading-relaxed">
+                                    <p className="text-sm md:text-base text-foreground leading-relaxed">
                                       {step.step3Data.description}
                                     </p>
                                     
                                     {/* Key Things to Know */}
-                                    <div className="bg-card border border-border rounded-2xl p-6 shadow-soft">
-                                      <h3 className="font-display font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
-                                        <BookOpen className="w-5 h-5 text-mint" />
+                                    <div className="bg-card border border-border rounded-xl md:rounded-2xl p-4 md:p-6 shadow-soft">
+                                      <h3 className="font-display font-semibold text-base md:text-lg text-foreground mb-3 md:mb-4 flex items-center gap-2">
+                                        <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-mint" />
                                         Key Things to Know
                                       </h3>
-                                      <div className="space-y-4">
+                                      <div className="space-y-3 md:space-y-4">
                                         {step.step3Data.keyThings.map((item, index) => (
                                           <div key={index}>
-                                            <p className="font-medium text-foreground">{item.headline}</p>
-                                            <p className="text-sm text-muted-foreground">{item.text}</p>
+                                            <p className="font-medium text-sm md:text-base text-foreground">{item.headline}</p>
+                                            <p className="text-xs md:text-sm text-muted-foreground">{item.text}</p>
                                           </div>
                                         ))}
                                       </div>
@@ -660,16 +660,16 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                               // Special rendering for Step 4
                               if (step.isStep4 && step.step4Data) {
                                 return (
-                                  <div key={step.number} className="space-y-4">
+                                  <div key={step.number} className="space-y-3 md:space-y-4">
                                     {/* Main text */}
-                                    <p className="text-foreground leading-relaxed">
+                                    <p className="text-sm md:text-base text-foreground leading-relaxed">
                                       {step.step4Data.text}
                                     </p>
                                     
                                     {/* Apply Now button */}
                                     <Button 
                                       asChild
-                                      className="bg-mint hover:bg-mint/90 text-white rounded-xl"
+                                      className="bg-mint hover:bg-mint/90 text-white rounded-lg md:rounded-xl text-sm md:text-base px-4 md:px-6 py-2 md:py-2.5 w-full sm:w-auto"
                                     >
                                       <a 
                                         href={step.step4Data.url} 
@@ -677,7 +677,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                                         rel="noopener noreferrer"
                                       >
                                         Apply Now
-                                        <ChevronRight className="w-4 h-4 ml-1" />
+                                        <ChevronRight className="w-3 h-3 md:w-4 md:h-4 ml-1" />
                                       </a>
                                     </Button>
                                   </div>
@@ -687,31 +687,31 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                               // Special rendering for Step 5
                               if (step.isStep5 && step.step5Data) {
                                 return (
-                                  <div key={step.number} className="space-y-6">
+                                  <div key={step.number} className="space-y-4 md:space-y-6">
                                     {/* Intro text */}
-                                    <p className="text-foreground leading-relaxed">
+                                    <p className="text-sm md:text-base text-foreground leading-relaxed">
                                       {step.step5Data.intro}
                                     </p>
                                     
                                     {/* Card List */}
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                                       {step.step5Data.cards.map((card, cardIndex) => (
                                         <div 
                                           key={cardIndex}
-                                          className="bg-card border border-border rounded-2xl p-5 shadow-soft hover:shadow-card transition-all duration-300 flex flex-col"
+                                          className="bg-card border border-border rounded-xl md:rounded-2xl p-4 md:p-5 shadow-soft hover:shadow-card transition-all duration-300 flex flex-col"
                                         >
                                           {/* Credit Card Name */}
-                                          <h3 className="font-display font-semibold text-base text-foreground mb-3">
+                                          <h3 className="font-display font-semibold text-sm md:text-base text-foreground mb-2 md:mb-3">
                                             {card.name}
                                           </h3>
                                           
                                           {/* 1 sentence description */}
-                                          <p className="text-foreground text-sm leading-relaxed mb-4 flex-1">
+                                          <p className="text-xs md:text-sm text-foreground leading-relaxed mb-3 md:mb-4 flex-1">
                                             {card.description}
                                           </p>
                                           
                                           {/* 2 highlights */}
-                                          <div className="space-y-1.5 mb-4">
+                                          <div className="space-y-1 md:space-y-1.5 mb-3 md:mb-4">
                                             {card.highlights2.map((highlight, idx) => (
                                               <div key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
                                                 <span className="text-mint">•</span>
@@ -723,7 +723,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                                           {/* Apply Now button */}
                                           <Button 
                                             asChild
-                                            className="w-full bg-mint hover:bg-mint/90 text-white mt-auto"
+                                            className="w-full bg-mint hover:bg-mint/90 text-white mt-auto text-xs md:text-sm px-3 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl touch-manipulation"
                                           >
                                             <a 
                                               href={card.url} 
@@ -731,7 +731,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                                               rel="noopener noreferrer"
                                             >
                                               Apply Now
-                                              <ChevronRight className="w-4 h-4 ml-1" />
+                                              <ChevronRight className="w-3 h-3 md:w-4 md:h-4 ml-1" />
                                             </a>
                                           </Button>
                                         </div>
@@ -744,32 +744,32 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                               // Regular step rendering
                               return (
                                 <div key={step.number}>
-                                  <p className="text-foreground leading-relaxed">{step.content}</p>
+                                  <p className="text-sm md:text-base text-foreground leading-relaxed">{step.content}</p>
                                 </div>
                               );
                             })}
                           </div>
                           {parsed.conclusion && (
-                            <p className="text-foreground leading-relaxed pt-2">{parsed.conclusion}</p>
+                            <p className="text-sm md:text-base text-foreground leading-relaxed pt-2">{parsed.conclusion}</p>
                           )}
                         </div>
                       );
                     }
                     return (
-                      <p className="text-foreground whitespace-pre-wrap leading-relaxed">
+                      <p className="text-sm md:text-base text-foreground whitespace-pre-wrap leading-relaxed">
                         {message.content}
                       </p>
                     );
                     } catch (error) {
                       console.error('Error parsing message:', error);
                       return (
-                        <p className="text-foreground whitespace-pre-wrap leading-relaxed">
+                        <p className="text-sm md:text-base text-foreground whitespace-pre-wrap leading-relaxed">
                           {message.content}
                         </p>
                       );
                     }
                   })()}
-                  <p className="text-sm text-muted-foreground mt-6">
+                  <p className="text-xs md:text-sm text-muted-foreground mt-4 md:mt-6">
                     We do our best to keep credit card info current, but details can change quickly. Always check the issuer's terms before you apply.
                   </p>
                 </div>
@@ -786,22 +786,22 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
 
         {/* Suggested Questions */}
         {suggestedQuestions.length > 0 && !isLoading && (
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm font-medium text-muted-foreground">You might also ask:</span>
+              <span className="text-xs md:text-sm font-medium text-muted-foreground">You might also ask:</span>
             </div>
             <div className="flex flex-col gap-2">
               {suggestedQuestions.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => handleSuggestedQuestionClick(suggestion.question)}
-                  className="inline-flex items-center px-4 py-2.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-all duration-200 cursor-pointer hover:shadow-sm w-fit"
+                  className="inline-flex items-center px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-all duration-200 cursor-pointer hover:shadow-sm w-full sm:w-fit touch-manipulation text-left"
                 >
                   {suggestion.question}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-muted-foreground mt-4 max-w-2xl">
+            <p className="text-xs text-muted-foreground mt-3 md:mt-4 max-w-2xl">
               Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it doesn't influence our recommendations.
             </p>
           </div>
@@ -812,7 +812,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
 
       {/* Input Area */}
       {!isLoading && (
-        <form onSubmit={handleSubmit} className="sticky bottom-0 bg-background/80 backdrop-blur-xl pt-4 pb-6 border-t border-border">
+        <form onSubmit={handleSubmit} className="sticky bottom-0 bg-background/80 backdrop-blur-xl pt-3 md:pt-4 pb-4 md:pb-6 border-t border-border">
         <div className="relative">
           <input
             ref={inputRef}
@@ -820,20 +820,20 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ask a question about credit cards..."
-            className="w-full px-5 py-4 pr-24 rounded-2xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-mint/50 focus:border-mint shadow-soft"
+            className="w-full px-4 md:px-5 py-3 md:py-4 pr-20 md:pr-24 rounded-xl md:rounded-2xl border border-border bg-card text-sm md:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-mint/50 focus:border-mint shadow-soft"
             disabled={isLoading}
           />
           <Button
             type="submit"
             disabled={isLoading || !inputValue.trim()}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-mint hover:bg-mint/90 text-white rounded-xl disabled:opacity-50"
+            className="absolute right-1.5 md:right-2 top-1/2 -translate-y-1/2 bg-mint hover:bg-mint/90 text-white rounded-lg md:rounded-xl disabled:opacity-50 text-xs md:text-sm px-3 md:px-4 py-2 md:py-2.5 touch-manipulation"
           >
             {isLoading ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              <Loader2 className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 animate-spin" />
             ) : (
-              <Send className="w-4 h-4 mr-2" />
+              <Send className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
             )}
-            Ask
+            <span className="hidden sm:inline">Ask</span>
           </Button>
         </div>
       </form>
