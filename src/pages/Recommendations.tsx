@@ -1,10 +1,19 @@
-import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useMemo, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Chatbot from "@/components/Chatbot";
 
 const Recommendations = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  // Redirect to homepage if no query parameter
+  useEffect(() => {
+    const query = searchParams.get("q");
+    if (!query) {
+      navigate("/", { replace: true });
+    }
+  }, [searchParams, navigate]);
   
   // Initialize directly from search params to avoid flickering
   const initialQuestion = useMemo(() => {

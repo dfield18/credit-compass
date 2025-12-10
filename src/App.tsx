@@ -9,9 +9,11 @@ import Recommendations from "./pages/Recommendations";
 import BasicQuestion from "./pages/BasicQuestion";
 import Reviews from "./pages/Reviews";
 import Guides from "./pages/Guides";
-import CreditCardBasics from "./pages/CreditCardBasics";
-import HowToChoose from "./pages/HowToChoose";
-import RewardsGuide from "./pages/RewardsGuide";
+import CreditBasics from "./pages/CreditBasics";
+import TwoCardCombo from "./pages/TwoCardCombo";
+import LoungeAccess from "./pages/LoungeAccess";
+import HowCreditCardsMakeMoney from "./pages/HowCreditCardsMakeMoney";
+import MinimumSpendRequirements from "./pages/MinimumSpendRequirements";
 import AboutUs from "./pages/AboutUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -32,9 +34,11 @@ const App = () => (
           <Route path="/question" element={<BasicQuestion />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/guides" element={<Guides />} />
-          <Route path="/guides/credit-card-basics" element={<CreditCardBasics />} />
-          <Route path="/guides/how-to-choose" element={<HowToChoose />} />
-          <Route path="/guides/rewards-guide" element={<RewardsGuide />} />
+          <Route path="/guides/credit-basics" element={<CreditBasics />} />
+          <Route path="/guides/2-card-combo" element={<TwoCardCombo />} />
+          <Route path="/guides/lounge-access" element={<LoungeAccess />} />
+          <Route path="/guides/how-credit-cards-make-money" element={<HowCreditCardsMakeMoney />} />
+          <Route path="/guides/minimum-spend-requirements" element={<MinimumSpendRequirements />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />

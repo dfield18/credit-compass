@@ -8,7 +8,7 @@ const Reviews = () => {
       <main className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-display font-bold text-foreground mb-8">
-            Top Credit Card Review Websites: A Guide to the Best Sources Online
+          The Best Credit Card Review Sites: Who to Trust and Why
           </h1>
           
           <div className="prose prose-slate dark:prose-invert max-w-none">
@@ -21,6 +21,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   1. NerdWallet
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: The Generalist
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.nerdwallet.com" 
@@ -32,7 +35,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  NerdWallet is one of the biggest names in personal finance, and for good reason. Their credit-card reviews are comprehensive, updated frequently, and backed by large datasets and proprietary scoring models. NerdWallet's standout feature is its easy-to-use comparison tools, letting you filter cards by rewards, credit score, annual fee, and more. They also excel at beginner-friendly explanations, making complex topics like point valuations or balance transfers accessible.
+                  NerdWallet is the household name in this space for a reason. They have massive datasets and a clean, easy-to-use interface. Their strength isn't necessarily niche strategies, but rather accessibility. If you need a simple comparison tool to filter by credit score or annual fee—or if you just need "APR" explained in plain English—this is the best starting point.
                 </p>
               </li>
 
@@ -40,6 +43,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   2. The Points Guy (TPG)
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: Travel Maximizers
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.thepointsguy.com" 
@@ -51,7 +57,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  The Points Guy is the go-to site for anyone who wants to maximize travel rewards. Their credit-card reviews include detailed valuations of points and miles, ranking systems, and expert recommendations tailored to travel goals. TPG often gets early access to new card launches, updates bonus valuations regularly, and publishes travel-focused strategy guides that go far deeper than most mainstream finance sites.
+                  If your goal is flying first class for pennies, TPG is the authority. They don't just review cards; they assign dollar values to points and miles, which is critical for doing the math on an annual fee. They are travel-heavy, so expect deep dives on airline transfer partners and lounge access rather than low-interest balance transfers.
                 </p>
               </li>
 
@@ -59,6 +65,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   3. Bankrate
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: Just the Numbers
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.bankrate.com" 
@@ -70,7 +79,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Bankrate is a long-established financial publisher known for its data accuracy and thorough research. Their credit-card reviews are highly structured and include transparent comparisons of rates, fees, interest costs, and introductory offers. Bankrate is especially useful if you're interested in the financial nuts and bolts—APRs, balance transfer details, or long-term cost considerations.
+                  Bankrate is the "old guard" of financial data. You go here when you want the nuts and bolts without the fluff. Their reviews are highly structured and focused on the math: interest rates, fees, and long-term costs. It's less about "lifestyle" and more about the raw financial terms.
                 </p>
               </li>
 
@@ -78,6 +87,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   4. Credit Karma
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: Approval Odds
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.creditkarma.com" 
@@ -89,7 +101,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Credit Karma provides personalized card recommendations based on your credit profile, which makes it different from purely editorial review sites. Its breakdowns are simple, visual, and driven by the user's likelihood of approval. While not as deep on points and travel strategies, it's excellent for understanding which cards you might realistically qualify for.
+                  Credit Karma operates differently than an editorial site. Because they have access to your credit profile, their value proposition is personalization. They are excellent for answering the question, "Will I actually get approved for this?" just don't expect the deep strategy guides you'll find on TPG or Doctor of Credit.
                 </p>
               </li>
 
@@ -97,6 +109,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   5. CNBC Select
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: Mainstream Reliability
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.cnbc.com/select" 
@@ -108,7 +123,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  CNBC Select blends editorial rigor with clear, concise comparisons. Their reviews often include real spend-profile testing, showing how much value a typical user might get from a card. They also conduct hands-on evaluations of perks like travel credits, lounge access, and purchase protections. If you want trusted mainstream editorial standards plus straightforward breakdowns, CNBC Select is a strong resource.
+                  CNBC brings a rigorous, journalistic approach to their reviews. They are particularly good at "real world" testing—breaking down exactly how much value an average person (not a super-user) will get out of a card. It's straightforward, high-quality editorial content without the jargon.
                 </p>
               </li>
 
@@ -116,6 +131,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   6. Doctor of Credit
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: The Hardcore Enthusiast
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.doctorofcredit.com" 
@@ -127,7 +145,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  A favorite among points and miles enthusiasts, Doctor of Credit covers deals, niche cards, application rules, and bank policies that most large sites overlook. Their reviews aren't flashy, but they're exceptionally detailed and often include information you won't find anywhere else—like approval data points and hard-to-spot bonus opportunities.
+                  This is the anti-influencer site. It's not flashy, but it is the favorite among churners and serious points enthusiasts. They cover the things big sites usually miss: specific bank rules, hard-pull data points, and aggressive sign-up bonuses. If you want the unfiltered truth about a bank's policies, go here.
                 </p>
               </li>
 
@@ -135,6 +153,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   7. US News Best Credit Cards
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: Rankings
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://creditcards.usnews.com" 
@@ -146,7 +167,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  US News offers a research-heavy approach, assigning numerical ratings based on fees, rewards, flexibility, and customer satisfaction. Their methodology is fully transparent, and they produce longform guides comparing categories like cash-back cards, student cards, or balance transfer offers.
+                  US News takes the same approach to cards as they do to colleges: strict, methodology-based rankings. They are transparent about how they score fees vs. rewards. If you like seeing a numerical score and reading long-form guides on specific categories (like "Best Student Cards"), they are a solid resource.
                 </p>
               </li>
 
@@ -154,6 +175,9 @@ const Reviews = () => {
                 <h2 className="text-2xl font-display font-semibold text-foreground mb-2">
                   8. Forbes Advisor
                 </h2>
+                <p className="mb-2 font-medium text-foreground">
+                  Best for: Value Calculations
+                </p>
                 <p className="mb-2">
                   <a 
                     href="https://www.forbes.com/advisor/credit-cards" 
@@ -165,7 +189,7 @@ const Reviews = () => {
                   </a>
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Forbes Advisor provides expert-written card reviews and well-structured rankings with a focus on value calculations. Their coverage is balanced and especially good for readers who want a highly analytical look at welcome bonuses, rewards categories, and estimated yearly value.
+                  Forbes Advisor is great for the analytical reader. Their reviews usually focus heavily on the "Year One" value of a card, doing the math on welcome bonuses minus the annual fee. It's a balanced, trustworthy source if you want to see the potential ROI of a card before you commit.
                 </p>
               </li>
             </ol>

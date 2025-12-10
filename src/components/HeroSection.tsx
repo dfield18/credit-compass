@@ -93,12 +93,20 @@ const HeroSection = () => {
                     I'm 40 and make $200k a year and want to travel more
                   </button>
                 </div>
-                <button
-                  onClick={() => handleTagClick("I'm almost retired and love dining out")}
-                  className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer ml-[20px]"
-                >
-                  I'm almost retired and love dining out
-                </button>
+                <div className="flex items-center gap-2 ml-[20px]">
+                  <button
+                    onClick={() => handleTagClick("I'm almost retired and love dining out")}
+                    className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+                  >
+                    I'm almost retired and love dining out
+                  </button>
+                  <button
+                    onClick={() => handleTagClick("I'm a student and don't have great credit")}
+                    className="px-3 py-1.5 text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+                  >
+                    I'm a student and don't have great credit
+                  </button>
+                </div>
               </div>
               <p className="text-xs text-muted-foreground mt-4 max-w-2xl mx-auto text-center">
                 Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it doesn't influence our recommendations.

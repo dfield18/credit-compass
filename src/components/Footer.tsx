@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 
 const footerLinks = {
-  Guides: ["Credit Card Basics", "How to Choose", "Rewards Guide"],
+  Guides: ["Credit Basics", "2-Card Combo", "Lounge Access", "How Credit Cards Make Money", "Minimum Spend Requirements"],
   Resources: ["Reviews"],
   About: ["About Us", "Contact", "Privacy Policy", "Terms of Service"],
 };
 
 const guideRoutes: Record<string, string> = {
-  "Credit Card Basics": "/guides/credit-card-basics",
-  "How to Choose": "/guides/how-to-choose",
-  "Rewards Guide": "/guides/rewards-guide",
+  "Credit Basics": "/guides/credit-basics",
+  "2-Card Combo": "/guides/2-card-combo",
+  "Lounge Access": "/guides/lounge-access",
+  "How Credit Cards Make Money": "/guides/how-credit-cards-make-money",
+  "Minimum Spend Requirements": "/guides/minimum-spend-requirements",
 };
 
 const resourcesRoutes: Record<string, string> = {

@@ -6,19 +6,29 @@ import { ArrowRight } from "lucide-react";
 
 const guides = [
   {
-    title: "Credit Card Basics",
-    description: "Learn the fundamentals of credit cards, including how they work, key terms, and what to know before applying for your first card.",
-    href: "/guides/credit-card-basics",
+    title: "Credit Basics",
+    description: "Learn how to build and maintain a strong credit score with practical strategies, from automating payments to mastering credit utilization.",
+    href: "/guides/credit-basics",
   },
   {
-    title: "How to Choose a Credit Card",
-    description: "A comprehensive guide to selecting the right credit card for your needs, covering rewards, fees, credit scores, and more.",
-    href: "/guides/how-to-choose",
+    title: "2-Card Combo",
+    description: "Maximize rewards without the headache. Learn how pairing two cards strategically can earn significantly more rewards with minimal effort.",
+    href: "/guides/2-card-combo",
   },
   {
-    title: "Rewards Guide",
-    description: "Master the art of maximizing credit card rewards, from cash back strategies to travel points and miles optimization.",
-    href: "/guides/rewards-guide",
+    title: "Lounge Access",
+    description: "The ultimate guide to airport lounge access, covering major networks, access rules, and the best credit cards for lounge entry in 2025.",
+    href: "/guides/lounge-access",
+  },
+  {
+    title: "How Credit Cards Make Money",
+    description: "Understand how banks generate revenue from credit cards through interchange fees, interest, and fees—and how to avoid being on the losing end.",
+    href: "/guides/how-credit-cards-make-money",
+  },
+  {
+    title: "Minimum Spend Requirements",
+    description: "Learn smart strategies to meet credit card minimum spend requirements without overspending, including timing, pre-payment, and tax payment methods.",
+    href: "/guides/minimum-spend-requirements",
   },
 ];
 
