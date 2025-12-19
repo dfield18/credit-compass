@@ -30,6 +30,11 @@ const guides = [
     description: "Learn smart strategies to meet credit card minimum spend requirements without overspending, including timing, pre-payment, and tax payment methods.",
     href: "/guides/minimum-spend-requirements",
   },
+  {
+    title: "Sapphire Reserve: Worth the Fee?",
+    description: "Is the Chase Sapphire Reserve's $795 annual fee worth it? A deep dive into the math, credits, and whether this premium card makes sense for your travel habits.",
+    href: "/guides/sapphire-reserve-worth-the-fee",
+  },
 ];
 
 const Guides = () => {

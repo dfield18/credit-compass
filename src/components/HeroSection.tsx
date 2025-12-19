@@ -46,6 +46,7 @@ const HeroSection = () => {
           {/* Subheadline */}
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 md:mb-10">
             Compare 350+ cards across rewards, cashback, and travel benefits. 
+            <br />
             Get personalized recommendations in seconds.
           </p>
           
@@ -71,28 +72,26 @@ const HeroSection = () => {
               </div>
             </form>
             
+            {/* Prompt text */}
+            <p className="text-base sm:text-lg text-muted-foreground text-center mt-4 md:mt-6">
+              Tell me where you are in life and I'll recommend your best card
+            </p>
+            
             {/* Quick links */}
-            <div className="flex flex-col items-center justify-center gap-2 md:gap-3 mt-4 md:mt-6">
-              <div className="flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
-                <span className="text-xs sm:text-sm text-muted-foreground">Popular:</span>
-                {["Cash Back", "Travel", "No Annual Fee", "0% APR"].map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => handleTagClick(tag)}
-                    className="px-2.5 py-1 md:px-3 md:py-1.5 text-xs sm:text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer"
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
+            <div className="flex flex-col items-center justify-center gap-2 md:gap-3 mt-2 md:mt-3">
               <div className="flex flex-col items-start md:items-center justify-start md:justify-center gap-2 w-full max-w-4xl mx-auto">
                 <div className="flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center gap-2 w-full">
-                  <span className="text-xs sm:text-sm text-muted-foreground">Very Specific:</span>
                   <button
-                    onClick={() => handleTagClick("I'm 40 and make $200k a year and want to travel more")}
+                    onClick={() => handleTagClick("I make $200k a year and want to travel more")}
                     className="px-2.5 py-1 md:px-3 md:py-1.5 text-xs sm:text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer whitespace-nowrap"
                   >
-                    I'm 40 and make $200k a year and want to travel more
+                    I make $200k a year and want to travel more
+                  </button>
+                  <button
+                    onClick={() => handleTagClick("I'm a freelancer and need flexible rewards")}
+                    className="px-2.5 py-1 md:px-3 md:py-1.5 text-xs sm:text-sm font-medium text-secondary-foreground bg-secondary hover:bg-secondary/80 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+                  >
+                    I'm a freelancer and need flexible rewards
                   </button>
                 </div>
                 <div className="flex flex-wrap md:flex-nowrap items-center justify-center md:justify-center gap-2">

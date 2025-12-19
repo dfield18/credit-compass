@@ -14,6 +14,7 @@ import TwoCardCombo from "./pages/TwoCardCombo";
 import LoungeAccess from "./pages/LoungeAccess";
 import HowCreditCardsMakeMoney from "./pages/HowCreditCardsMakeMoney";
 import MinimumSpendRequirements from "./pages/MinimumSpendRequirements";
+import SapphireReserveWorthTheFee from "./pages/SapphireReserveWorthTheFee";
 import AboutUs from "./pages/AboutUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/guides/lounge-access" element={<LoungeAccess />} />
           <Route path="/guides/how-credit-cards-make-money" element={<HowCreditCardsMakeMoney />} />
           <Route path="/guides/minimum-spend-requirements" element={<MinimumSpendRequirements />} />
+          <Route path="/guides/sapphire-reserve-worth-the-fee" element={<SapphireReserveWorthTheFee />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
