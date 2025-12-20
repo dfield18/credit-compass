@@ -70,7 +70,7 @@ const FeaturedCardsSection = () => {
           </div>
 
           {/* Cards List */}
-          <div className="space-y-2 md:space-y-5">
+          <div className="space-y-4 md:space-y-5">
             {cards.map((card) => (
               <div
                 key={card.name}
@@ -84,18 +84,19 @@ const FeaturedCardsSection = () => {
                   </div>
                 )}
                 
-                <div className="flex flex-row lg:flex-row">
-                  {/* Card Visual */}
-                  <div className="w-32 md:w-auto lg:w-64 p-2 md:p-7 flex items-center justify-center bg-muted/30 flex-shrink-0">
-                    <div className={`w-28 h-16 md:w-44 md:h-28 rounded-lg md:rounded-xl bg-gradient-to-br ${card.gradient} shadow-lg transform group-hover:scale-105 group-hover:-rotate-2 transition-all duration-300 p-2 md:p-4 flex flex-col justify-between`}>
-                      <div className="text-white/90 text-[10px] md:text-xs font-medium">{card.issuer}</div>
+                {/* Mobile: Stacked layout */}
+                <div className="flex flex-col md:flex-row lg:flex-row">
+                  {/* Card Visual - Mobile: Centered, Desktop: Side */}
+                  <div className="w-full md:w-auto lg:w-64 p-5 md:p-7 flex items-center justify-center bg-muted/30 flex-shrink-0 md:border-r md:border-border">
+                    <div className={`w-full max-w-[240px] h-36 md:w-44 md:h-28 rounded-xl md:rounded-xl bg-gradient-to-br ${card.gradient} shadow-lg transform group-hover:scale-105 group-hover:-rotate-2 transition-all duration-300 p-4 md:p-4 flex flex-col justify-between`}>
+                      <div className="text-white/90 text-xs md:text-xs font-medium">{card.issuer}</div>
                       <div className="flex justify-between items-end">
-                        <div className="flex gap-0.5 md:gap-1">
+                        <div className="flex gap-1 md:gap-1">
                           {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="w-3 h-0.5 md:w-6 md:h-1 rounded-full bg-white/40" />
+                            <div key={i} className="w-6 h-1 md:w-6 md:h-1 rounded-full bg-white/40" />
                           ))}
                         </div>
-                        <div className="w-5 h-3 md:w-8 md:h-6 rounded bg-white/30" />
+                        <div className="w-8 h-6 md:w-8 md:h-6 rounded bg-white/30" />
                       </div>
                     </div>
                   </div>
@@ -103,42 +104,42 @@ const FeaturedCardsSection = () => {
                   {/* Card Info and CTA Container */}
                   <div className="flex-1 flex flex-col lg:flex-row">
                     {/* Card Info */}
-                    <div className="flex-1 p-2 md:p-7">
+                    <div className="flex-1 p-5 md:p-7">
                       <div className="flex flex-col h-full">
-                        <div className="flex items-center gap-2 mb-1 md:mb-1.5">
-                          <span className="tag text-xs md:text-sm">{card.category}</span>
+                        <div className="flex items-center gap-2 mb-2 md:mb-1.5">
+                          <span className="tag text-sm md:text-sm">{card.category}</span>
                         </div>
-                        <h3 className="font-display text-lg md:text-2xl font-medium text-foreground mb-1 md:mb-3.5">
+                        <h3 className="font-display text-xl md:text-2xl font-medium text-foreground mb-3 md:mb-3.5">
                           {card.name}
                         </h3>
                         
-                        {/* Highlights */}
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 md:gap-6 mb-2 md:mb-5">
+                        {/* Highlights - Mobile: Stacked, Desktop: Row */}
+                        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 lg:gap-6 mb-4 md:mb-5">
                           {card.highlights.map((highlight) => (
-                            <div key={highlight} className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground">
-                              <Check className="w-3 h-3 md:w-4 md:h-4 text-primary flex-shrink-0" />
+                            <div key={highlight} className="flex items-start md:items-center gap-2 text-sm md:text-sm text-muted-foreground">
+                              <Check className="w-4 h-4 md:w-4 md:h-4 text-primary flex-shrink-0 mt-0.5 md:mt-0" />
                               <span className="break-words">{highlight}</span>
                             </div>
                           ))}
                         </div>
 
                         {/* Stats */}
-                        <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-6 md:gap-8 text-sm mt-auto">
+                        <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 md:gap-8 text-sm mt-auto">
                           <div>
-                            <div className="text-muted-foreground mb-0.5 md:mb-1 text-[10px] md:text-xs uppercase tracking-wide">Welcome Bonus</div>
-                            <div className="font-medium text-foreground mb-0.5 leading-tight text-xs md:text-base">{card.bonus}</div>
-                            <div className="text-[10px] md:text-xs text-primary font-medium">{card.bonusValue}</div>
+                            <div className="text-muted-foreground mb-1 md:mb-1 text-xs md:text-xs uppercase tracking-wide">Welcome Bonus</div>
+                            <div className="font-medium text-foreground mb-0.5 leading-tight text-sm md:text-base">{card.bonus}</div>
+                            <div className="text-xs md:text-xs text-primary font-medium">{card.bonusValue}</div>
                           </div>
                           <div>
-                            <div className="text-muted-foreground mb-0.5 md:mb-1 text-[10px] md:text-xs uppercase tracking-wide">Annual Fee</div>
-                            <div className="font-medium text-foreground mb-0.5 leading-tight text-xs md:text-base">{card.annualFee}</div>
+                            <div className="text-muted-foreground mb-1 md:mb-1 text-xs md:text-xs uppercase tracking-wide">Annual Fee</div>
+                            <div className="font-medium text-foreground mb-0.5 leading-tight text-sm md:text-base">{card.annualFee}</div>
                           </div>
                         </div>
                       </div>
                     </div>
 
                     {/* CTA */}
-                    <div className="w-full lg:w-48 p-2 md:p-5 flex items-center justify-center border-t lg:border-t-0 lg:border-l border-border bg-muted/20 flex-shrink-0">
+                    <div className="w-full lg:w-48 p-4 md:p-5 flex items-center justify-center border-t md:border-t-0 lg:border-l border-border bg-muted/20 flex-shrink-0">
                     {(() => {
                       const cardUrls: Record<string, string> = {
                         "Chase Sapphire Preferred": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
@@ -148,13 +149,13 @@ const FeaturedCardsSection = () => {
                       };
                       const url = cardUrls[card.name];
                       return url ? (
-                        <Button asChild className="w-full lg:w-auto rounded-lg md:rounded-xl px-4 md:px-6 py-2 md:py-2.5 text-sm md:text-base">
+                        <Button asChild className="w-full lg:w-auto rounded-lg md:rounded-xl px-6 md:px-6 py-3 md:py-2.5 text-base md:text-base min-h-[44px] md:min-h-0 touch-manipulation">
                           <a href={url} target="_blank" rel="noopener noreferrer">
                             Apply Now
                           </a>
                         </Button>
                       ) : (
-                        <Button className="w-full lg:w-auto rounded-lg md:rounded-xl px-4 md:px-6 py-2 md:py-2.5 text-sm md:text-base">
+                        <Button className="w-full lg:w-auto rounded-lg md:rounded-xl px-6 md:px-6 py-3 md:py-2.5 text-base md:text-base min-h-[44px] md:min-h-0 touch-manipulation">
                           Apply Now
                         </Button>
                       );

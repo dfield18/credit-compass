@@ -19,10 +19,10 @@ const Header = () => {
           {/* Logo */}
           <a href="/" className="flex items-center gap-1.5 md:gap-2">
             <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-base md:text-lg">C</span>
+              <span className="text-primary-foreground font-display font-bold text-base md:text-lg">Y</span>
             </div>
             <span className="font-display text-lg md:text-xl font-medium text-foreground">
-              CardWise
+              YourBestCard
             </span>
           </a>
 

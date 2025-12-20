@@ -29,7 +29,7 @@ const StatsSection = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-10 md:mb-16">
+          <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4">
               Why trust CardWise?
             </h2>
@@ -39,19 +39,19 @@ const StatsSection = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-8">
             {features.map((feature) => (
               <div
                 key={feature.title}
                 className="text-center group"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-mint-light text-primary mx-auto mb-4 md:mb-5 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                  <feature.icon className="w-5 h-5 md:w-6 md:h-6" />
+                <div className="w-14 h-14 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-mint-light text-primary mx-auto mb-4 md:mb-5 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <feature.icon className="w-6 h-6 md:w-6 md:h-6" />
                 </div>
                 <h3 className="font-display text-base md:text-lg font-medium text-foreground mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed px-2">
+                <p className="text-sm md:text-sm text-muted-foreground leading-relaxed px-2">
                   {feature.description}
                 </p>
               </div>
