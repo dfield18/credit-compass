@@ -54,7 +54,7 @@ const QuickStartSection = () => {
   };
 
   return (
-    <section className="py-12 md:py-20 bg-card">
+    <section className="pt-6 pb-12 md:pt-10 md:pb-20 bg-card">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}

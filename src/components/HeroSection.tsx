@@ -28,7 +28,7 @@ const HeroSection = () => {
       <div className="absolute top-20 right-[10%] w-72 h-72 bg-mint-light rounded-full blur-3xl opacity-60" />
       <div className="absolute bottom-0 left-[5%] w-96 h-96 bg-coral-light rounded-full blur-3xl opacity-40" />
       
-      <div className="container mx-auto px-4 pt-8 pb-16 md:pt-16 md:pb-24 lg:pt-24 lg:pb-32 relative">
+      <div className="container mx-auto px-4 pt-8 pb-12 md:pt-16 md:pb-20 lg:pt-24 lg:pb-28 relative">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-mint-light text-primary text-xs md:text-sm font-medium mb-6 md:mb-8">
