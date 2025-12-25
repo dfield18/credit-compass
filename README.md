@@ -45,7 +45,7 @@ npm i
 # Create a .env file in the root directory with the following variables:
 # VITE_CHATBASE_API_KEY=your_chatbase_api_key_here
 # VITE_CHATBASE_CHATBOT_ID=your_chatbase_chatbot_id_here
-# VITE_OPENAI_API_KEY=your_openai_api_key_here
+# OPENAI_API_KEY=your_openai_api_key_here (server-side only, not exposed to browser)
 
 # Step 5: Start the development server with auto-reloading and an instant preview.
 npm run dev
@@ -66,6 +66,8 @@ This project requires the following environment variables to be set in a `.env` 
 3. **OPENAI_API_KEY**: Your OpenAI API key
    - Get it from https://platform.openai.com/api-keys
    - Used for generating suggested follow-up questions
+   - **IMPORTANT**: This is a server-side environment variable (NOT prefixed with VITE_)
+   - The API key is stored server-side and never exposed to the browser for security
    - Optional: If not provided, default questions will be used
 
 ### Creating the .env file
@@ -73,15 +75,19 @@ This project requires the following environment variables to be set in a `.env` 
 Create a `.env` file in the root directory of the project:
 
 ```bash
-# Chatbase Configuration
+# Chatbase Configuration (client-side, prefixed with VITE_)
 VITE_CHATBASE_API_KEY=your_chatbase_api_key_here
 VITE_CHATBASE_CHATBOT_ID=your_chatbase_chatbot_id_here
 
-# OpenAI Configuration (for suggested follow-up questions)
-VITE_OPENAI_API_KEY=your_openai_api_key_here
+# OpenAI Configuration (server-side, NOT prefixed with VITE_)
+# This key is only used in serverless functions and never exposed to the browser
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-**Note**: In Vite, environment variables must be prefixed with `VITE_` to be accessible in the client-side code.
+**Note**: 
+- Chatbase variables use `VITE_` prefix because they're used in client-side code
+- OpenAI API key does NOT use `VITE_` prefix because it's only used in server-side API routes
+- For Vercel deployment, set `OPENAI_API_KEY` in your Vercel project settings (Settings > Environment Variables)
 
 ## How the Chatbot Works
 

@@ -44,6 +44,12 @@ const Header = () => {
                 </LinkComponent>
               );
             })}
+            <Link
+              to="/about-us"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors link-underline"
+            >
+              About Us
+            </Link>
           </nav>
 
 

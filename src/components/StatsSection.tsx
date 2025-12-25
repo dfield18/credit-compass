@@ -31,7 +31,7 @@ const StatsSection = () => {
           {/* Section Header */}
           <div className="text-center mb-8 md:mb-16">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4">
-              Why trust CardWise?
+              Why trust YourBestCard?
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto px-2">
               We use AI and real-world data to help you quickly compare credit cards—but we always encourage you to double-check the details before you apply.

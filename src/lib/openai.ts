@@ -1,5 +1,8 @@
 /**
  * OpenAI API integration for generating suggested follow-up questions
+ * 
+ * NOTE: This function calls a server-side API route to keep the OpenAI API key secure.
+ * The API key is never exposed to the browser.
  */
 
 export interface SuggestedQuestion {
@@ -9,133 +12,43 @@ export interface SuggestedQuestion {
 
 /**
  * Generate suggested follow-up questions with icons based on the conversation context
+ * 
+ * This function calls a server-side API route (/api/generate-questions) which handles
+ * the OpenAI API call securely. The OpenAI API key is stored server-side and never
+ * exposed to the browser.
  */
 export async function generateSuggestedQuestions(
   userQuestion: string,
   aiResponse: string,
   count: number = 3
 ): Promise<SuggestedQuestion[]> {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-
-  if (!apiKey) {
-    // If OpenAI API key is not configured, return default questions
-    return getDefaultSuggestedQuestions();
-  }
-
-  const url = 'https://api.openai.com/v1/chat/completions';
-
-  const prompt = `Based on the following conversation about credit cards, generate ${count} concise, relevant follow-up questions that a user might want to ask. Each question should be a single sentence and should be specific to the context.
-
-User Question: "${userQuestion}"
-
-AI Response: "${aiResponse}"
-
-Generate ${count} follow-up questions that are:
-1. Relevant to the conversation
-2. Specific and actionable
-3. Natural and conversational
-4. Maximum 18 words each
-
-For each question, also suggest a single emoji icon that best represents the question topic (e.g., ✈️ for travel, 💳 for credit cards, 💰 for cash back, 🎁 for rewards, etc.).
-
-Return the response as a JSON object with a "questions" array. Each item in the array should have "question" and "icon" fields. Example:
-{
-  "questions": [
-    {"question": "Which credit card offers the best travel rewards program?", "icon": "✈️"},
-    {"question": "What are the top no-annual-fee credit cards available?", "icon": "💳"},
-    {"question": "What cards offer the best cash back?", "icon": "💰"}
-  ]
-}
-
-Return ONLY valid JSON, no other text.`;
-
   try {
-    const response = await fetch(url, {
+    // Call our server-side API route instead of OpenAI directly
+    const response = await fetch('/api/generate-questions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a helpful assistant that generates relevant follow-up questions for credit card conversations. Always return valid JSON with a "questions" array.',
-          },
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 300,
-        response_format: { type: 'json_object' },
+        userQuestion,
+        aiResponse,
+        count,
       }),
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error('OpenAI API error:', errorData);
+      console.error('API route error:', response.status, response.statusText);
       return getDefaultSuggestedQuestions();
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || '';
     
-    try {
-      // Parse as JSON object
-      const parsed = JSON.parse(content);
-      const questions = parsed.questions || parsed.results || [];
-      
-      // Helper function to count words
-      const countWords = (text: string): number => {
-        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
-      };
-
-      // Helper function to truncate to 18 words
-      const truncateTo18Words = (text: string): string => {
-        const words = text.trim().split(/\s+/).filter(word => word.length > 0);
-        if (words.length <= 18) return text.trim();
-        return words.slice(0, 18).join(' ') + '...';
-      };
-
-      // Validate and format the questions
-      const formatted = questions
-        .filter((q: any) => q && q.question && q.icon)
-        .map((q: any) => {
-          const question = q.question.trim();
-          // Truncate to 18 words if needed
-          const truncatedQuestion = countWords(question) > 18 
-            ? truncateTo18Words(question) 
-            : question;
-          return {
-            question: truncatedQuestion,
-            icon: q.icon.trim(),
-          };
-        })
-        .slice(0, count);
-
-      return formatted.length > 0 ? formatted : getDefaultSuggestedQuestions();
-    } catch (parseError) {
-      // Fallback: try to extract questions from text format or use keyword matching
-      console.error('Failed to parse JSON response:', parseError);
-      // Try to extract questions and generate icons based on keywords
-      const textQuestions = content
-        .split('\n')
-        .map((q: string) => q.trim())
-        .filter((q: string) => q.length > 0 && !q.match(/^\d+[\.\)]/))
-        .slice(0, count);
-      
-      if (textQuestions.length > 0) {
-        return textQuestions.map((q: string) => ({
-          question: q,
-          icon: getIconForQuestion(q),
-        }));
-      }
-      
-      return getDefaultSuggestedQuestions();
+    // The API route returns { questions: [...] }
+    if (data.questions && Array.isArray(data.questions)) {
+      return data.questions;
     }
+
+    return getDefaultSuggestedQuestions();
   } catch (error) {
     console.error('Failed to generate suggested questions:', error);
     return getDefaultSuggestedQuestions();

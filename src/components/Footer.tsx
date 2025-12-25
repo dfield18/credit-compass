@@ -33,7 +33,7 @@ const Footer = () => {
                   <span className="text-primary-foreground font-display font-bold text-base md:text-lg">C</span>
                 </div>
                 <span className="font-display text-lg md:text-xl font-medium text-background">
-                  CardWise
+                  YourBestCard
                 </span>
               </a>
               <p className="text-xs md:text-sm text-background/50 leading-relaxed">
@@ -85,7 +85,7 @@ const Footer = () => {
               © 2026 YourBestCard. All rights reserved.
             </p>
             <p className="text-xs text-background/40 text-center sm:text-right max-w-lg px-2">
-              CardWise may receive compensation from card issuers. Opinions are our own.
+              YourBestCard may receive compensation from card issuers. Opinions are our own.
             </p>
           </div>
         </div>
