@@ -108,7 +108,7 @@ const HeroSection = () => {
                   </button>
                 </div>
                 <p className="text-xs text-muted-foreground mt-2 max-w-2xl mx-auto text-center px-4">
-                  Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it doesn't influence our recommendations.
+                  Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it does not influence our recommendations.
                 </p>
               </div>
             </div>
@@ -171,7 +171,7 @@ const HeroSection = () => {
                 </div>
               </form>
               <p className="text-xs text-muted-foreground mt-4 max-w-2xl mx-auto text-center">
-                Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it doesn't influence our recommendations.
+                Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it does not influence our recommendations.
               </p>
             </div>
           </div>
