@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const footerLinks = {
   Categories: ["Online Shopping", "Airline Cards", "Business Cards", "Rotating Categories", "Build Credit", "Balance Transfer"],
@@ -21,6 +21,14 @@ const aboutRoutes: Record<string, string> = {
 };
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryName: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const query = `best cards for ${categoryName}`;
+    navigate(`/recommendations?q=${encodeURIComponent(query)}`);
+  };
+
   return (
     <footer className="bg-foreground text-background/80">
       {/* Main Footer */}
@@ -29,14 +37,14 @@ const Footer = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
-              <a href="/" className="flex items-center gap-1.5 md:gap-2 mb-3 md:mb-4">
+              <Link to="/" className="flex items-center gap-1.5 md:gap-2 mb-3 md:mb-4">
                 <div className="w-7 h-7 md:w-8 md:h-8 rounded-xl bg-primary flex items-center justify-center">
                   <span className="text-primary-foreground font-serif font-bold text-base md:text-lg">Y</span>
                 </div>
                 <span className="font-serif text-lg md:text-xl font-medium text-background">
                   YourBestCard
                 </span>
-              </a>
+              </Link>
               <p className="text-xs md:text-sm text-background/50 leading-relaxed">
                 Making credit card decisions simple and transparent.
               </p>
@@ -50,11 +58,28 @@ const Footer = () => {
                 </h4>
                 <ul className="space-y-2 md:space-y-2.5">
                   {links.map((link) => {
+                    // Check if this is a category link that should navigate to chatbot
+                    const isCategoryLink = category === "Categories";
                     // Check if this is a guide link that should use React Router
                     const isGuideLink = category === "Resources" && guideRoutes[link];
                     // Check if this is an About link that should use React Router
                     const isAboutLink = category === "Company" && aboutRoutes[link];
                     const isRoute = isGuideLink || isAboutLink;
+                    
+                    if (isCategoryLink) {
+                      return (
+                        <li key={link}>
+                          <a
+                            href="#"
+                            onClick={(e) => handleCategoryClick(link, e)}
+                            className="text-xs md:text-sm text-background/50 hover:text-primary transition-colors touch-manipulation"
+                          >
+                            {link}
+                          </a>
+                        </li>
+                      );
+                    }
+                    
                     const LinkComponent = isRoute ? Link : "a";
                     const linkProps = isRoute 
                       ? { 

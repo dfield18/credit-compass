@@ -8,7 +8,7 @@ const RewardsGuide = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-8 md:py-16">
+      <main className="container mx-auto px-4 pt-20 pb-8 md:pt-24 md:pb-16">
         <div className="max-w-4xl mx-auto">
           <Link to="/guides" className="inline-block mb-6 md:mb-8">
             <Button variant="ghost" size="sm" className="gap-2 text-xs md:text-sm">

@@ -41,7 +41,7 @@ const Guides = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-8 md:py-16">
+      <main className="container mx-auto px-4 pt-20 pb-8 md:pt-24 md:pb-16">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-foreground mb-3 md:mb-4">
             Credit Card Guides
