@@ -391,6 +391,16 @@ const parseStepResponse = (response: string): ParsedResponse => {
   }
 };
 
+/**
+ * Get a random cartoon image URL from the GitHub repo
+ */
+const getRandomCartoon = (): string => {
+  // Generate a random number between 1 and 50 (adjust range based on available cartoons)
+  const randomNum = Math.floor(Math.random() * 50) + 1;
+  // Use raw.githubusercontent.com to access the image directly
+  return `https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${randomNum}.png`;
+};
+
 const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -400,6 +410,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   const [suggestedQuestions, setSuggestedQuestions] = useState<SuggestedQuestion[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [conversationHistory, setConversationHistory] = useState<ChatbaseMessage[]>([]);
+  const [currentCartoon, setCurrentCartoon] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const userMessageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
@@ -505,6 +516,10 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
     setInputValue("");
     setIsLoading(true);
     setSuggestedQuestions([]);
+    
+    // Set a random cartoon for this question
+    const cartoonUrl = getRandomCartoon();
+    setCurrentCartoon(cartoonUrl);
 
     // Create conversation ID if it doesn't exist
     const currentConversationId = conversationId || createConversationId();
@@ -820,8 +835,22 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
         ))}
 
         {isLoading && (
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center gap-4">
             <AnimatedCreditCard />
+            {currentCartoon && (
+              <img 
+                src={currentCartoon} 
+                alt="Cartoon" 
+                className="max-w-full h-auto rounded-lg shadow-sm"
+                style={{ maxWidth: '315px' }}
+                onError={(e) => {
+                  // Fallback if image doesn't exist - try a different number
+                  const target = e.target as HTMLImageElement;
+                  const randomNum = Math.floor(Math.random() * 50) + 1;
+                  target.src = `https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${randomNum}.png`;
+                }}
+              />
+            )}
           </div>
         )}
 
@@ -845,6 +874,22 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
             <p className="text-xs text-muted-foreground mt-3 md:mt-4 max-w-2xl">
               Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it does not influence our recommendations.
             </p>
+            {currentCartoon && (
+              <div className="flex justify-center mt-4">
+                <img 
+                  src={currentCartoon} 
+                  alt="Cartoon" 
+                  className="max-w-full h-auto rounded-lg shadow-sm"
+                  style={{ maxWidth: '300px' }}
+                  onError={(e) => {
+                    // Fallback if image doesn't exist - try a different number
+                    const target = e.target as HTMLImageElement;
+                    const randomNum = Math.floor(Math.random() * 50) + 1;
+                    target.src = `https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${randomNum}.png`;
+                  }}
+                />
+              </div>
+            )}
           </div>
         )}
 
