@@ -85,7 +85,7 @@ const HeroSection = () => {
               {/* Suggested questions - separate unit below search */}
               <div className="mt-6">
                 <p className="text-sm text-muted-foreground text-center mb-4">
-                  Tell me where you are in life and I'll recommend your best card
+                  Tell me where you're at—I'll find your best card.
                 </p>
                 <div className="grid grid-cols-2 gap-2 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-3">
                   {prompts.map((prompt, index) => (
@@ -135,7 +135,7 @@ const HeroSection = () => {
               {/* Suggested questions - separate unit below search */}
               <div className="mt-6">
                 <p className="text-sm text-muted-foreground text-center mb-4">
-                  Tell me where you are in life and I'll recommend your best card
+                  Tell me where you're at—I'll find your best card.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                   {prompts.map((prompt, index) => (
