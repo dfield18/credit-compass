@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,42 +6,44 @@
 
 @layer base {
   :root {
-    --background: 45 30% 98%;
-    --foreground: 220 25% 10%;
+    --background: 40 33% 98%;
+    --foreground: 220 25% 15%;
     
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 10%;
+    --card-foreground: 220 25% 15%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 10%;
+    --popover-foreground: 220 25% 15%;
     
-    --primary: 190 70% 50%;
+    --primary: 168 60% 42%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 45 40% 94%;
+    --secondary: 40 30% 94%;
     --secondary-foreground: 220 25% 20%;
     
-    --muted: 45 20% 92%;
+    --muted: 40 20% 92%;
     --muted-foreground: 220 15% 45%;
     
-    --accent: 35 90% 55%;
-    --accent-foreground: 220 25% 10%;
+    --accent: 15 85% 60%;
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     
     --border: 220 15% 88%;
     --input: 220 15% 88%;
-    --ring: 190 70% 50%;
+    --ring: 168 60% 42%;
     
     --radius: 0.75rem;
     
     /* Custom tokens */
-    --mint: 190 70% 50%;
-    --mint-light: 190 50% 96%;
+    --mint: 168 60% 42%;
+    --mint-light: 168 50% 96%;
     --coral: 15 85% 60%;
     --coral-light: 15 90% 95%;
-    --sand: 35 40% 90%;
+    --gold: 40 80% 55%;
+    --navy: 220 40% 20%;
+    --sand: 40 30% 90%;
     --slate: 220 25% 25%;
     
     --shadow-soft: 0 4px 20px -4px hsl(220 25% 10% / 0.08);
@@ -118,12 +120,38 @@
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-coral;
   }
   
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(40 33% 98%) 0%, hsl(168 50% 96%) 100%);
+  }
+  
+  .glass {
+    @apply bg-background/80 backdrop-blur-md;
+  }
+  
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-elevated hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .shadow-glow {
+    box-shadow: 0 0 40px hsl(168 60% 42% / 0.2);
   }
   
   .link-underline {
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  .input-search {
+    height: 64px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 9999px;
+    @apply focus:shadow-glow focus:ring-2 focus:ring-primary/20;
   }
 }
 
@@ -190,12 +218,32 @@ html {
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.6;
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-20px) translateX(10px);
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -208,5 +256,13 @@ html {
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
 }

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
 const footerLinks = {
-  Guides: ["Credit Basics", "2-Card Combo", "Lounge Access", "How Credit Cards Make Money", "Minimum Spend Requirements"],
-  About: ["About Us", "Contact", "Privacy Policy", "Terms of Service"],
+  Categories: ["Online Shopping", "Airline Cards", "Business Cards", "Rotating Categories", "Build Credit", "Balance Transfer"],
+  Resources: ["Credit Basics", "2-Card Combo", "Lounge Access", "How Credit Cards Make Money", "Minimum Spend Requirements"],
+  Company: ["About Us", "Contact", "Privacy Policy", "Terms of Service"],
 };
 
 const guideRoutes: Record<string, string> = {
@@ -29,10 +30,10 @@ const Footer = () => {
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <a href="/" className="flex items-center gap-1.5 md:gap-2 mb-3 md:mb-4">
-                <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-display font-bold text-base md:text-lg">C</span>
+                <div className="w-7 h-7 md:w-8 md:h-8 rounded-xl bg-primary flex items-center justify-center">
+                  <span className="text-primary-foreground font-serif font-bold text-base md:text-lg">Y</span>
                 </div>
-                <span className="font-display text-lg md:text-xl font-medium text-background">
+                <span className="font-serif text-lg md:text-xl font-medium text-background">
                   YourBestCard
                 </span>
               </a>
@@ -50,9 +51,9 @@ const Footer = () => {
                 <ul className="space-y-2 md:space-y-2.5">
                   {links.map((link) => {
                     // Check if this is a guide link that should use React Router
-                    const isGuideLink = category === "Guides" && guideRoutes[link];
+                    const isGuideLink = category === "Resources" && guideRoutes[link];
                     // Check if this is an About link that should use React Router
-                    const isAboutLink = category === "About" && aboutRoutes[link];
+                    const isAboutLink = category === "Company" && aboutRoutes[link];
                     const isRoute = isGuideLink || isAboutLink;
                     const LinkComponent = isRoute ? Link : "a";
                     const linkProps = isRoute 
@@ -67,7 +68,7 @@ const Footer = () => {
                       <li key={link}>
                         <LinkComponent
                           {...linkProps}
-                          className="text-xs md:text-sm text-background/50 hover:text-background transition-colors touch-manipulation"
+                          className="text-xs md:text-sm text-background/50 hover:text-primary transition-colors touch-manipulation"
                         >
                           {link}
                         </LinkComponent>

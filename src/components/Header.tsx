@@ -1,57 +1,70 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Credit Cards", href: "/" },
-    { label: "Guides", href: "/guides" },
-    { label: "Reviews", href: "/reviews" },
+    { label: "Categories", href: "#categories" },
+    { label: "Top Cards", href: "#top-cards" },
+    { label: "How It Works", href: "#how-it-works" },
   ];
 
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    if (href.startsWith("#")) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-14 md:h-16">
+        <div className="flex items-center h-16 md:h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-1.5 md:gap-2">
-            <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-base md:text-lg">Y</span>
+          <a 
+            href="/" 
+            className="flex items-center gap-2 group flex-shrink-0"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+              <CreditCard className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-display text-lg md:text-xl font-medium text-foreground">
+            <span className="font-serif text-xl font-semibold text-foreground">
               YourBestCard
             </span>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => {
-              const isRoute = item.href.startsWith("/");
-              const LinkComponent = isRoute ? Link : "a";
-              const linkProps = isRoute 
-                ? { to: item.href } 
-                : { href: item.href };
-              return (
-                <LinkComponent
-                  key={item.label}
-                  {...linkProps}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors link-underline"
-                >
-                  {item.label}
-                </LinkComponent>
-              );
-            })}
-            <Link
-              to="/about-us"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors link-underline"
-            >
-              About Us
-            </Link>
+          {/* Desktop Navigation - Centered */}
+          <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.href);
+                }}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
 
+          {/* CTA Button - Right */}
+          <div className="hidden md:block flex-shrink-0">
+            <Button variant="default" size="lg" asChild>
+              <a href="/recommendations">Find Your Card</a>
+            </Button>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -65,25 +78,26 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-3 border-t border-border">
-            <nav className="flex flex-col gap-0.5">
-              {navItems.map((item) => {
-                const isRoute = item.href.startsWith("/");
-                const LinkComponent = isRoute ? Link : "a";
-                const linkProps = isRoute 
-                  ? { to: item.href } 
-                  : { href: item.href };
-                return (
-                  <LinkComponent
-                    key={item.label}
-                    {...linkProps}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors touch-manipulation"
-                  >
-                    {item.label}
-                  </LinkComponent>
-                );
-              })}
+          <div className="md:hidden py-3 border-t border-border animate-fade-in">
+            <nav className="flex flex-col">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.href);
+                  }}
+                  className="px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground transition-colors touch-manipulation"
+                >
+                  {item.label}
+                </a>
+              ))}
+              <div className="px-4 mt-2">
+                <Button variant="default" size="lg" className="w-full" asChild>
+                  <a href="/recommendations" onClick={() => setIsMobileMenuOpen(false)}>Find Your Card</a>
+                </Button>
+              </div>
             </nav>
           </div>
         )}

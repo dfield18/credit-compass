@@ -1,25 +1,23 @@
-import { Shield, Zap, Users, Award } from "lucide-react";
+import { Database, FileText, Scale } from "lucide-react";
 
-const features = [
+const stats = [
   {
-    icon: Award,
-    title: "AI-Assisted Matching",
-    description: "Our AI suggests cards based on your habits, but it doesn't know your full financial picture—so treat results as a starting point.",
+    icon: Database,
+    number: "350+",
+    label: "Cards Analyzed",
+    color: "primary",
   },
   {
-    icon: Zap,
-    title: "Personalized, Not Personal",
-    description: "We tailor suggestions based on the preferences you share without collecting sensitive financial data.",
+    icon: FileText,
+    number: "1,400+",
+    label: "Verified Data Sources",
+    color: "coral",
   },
   {
-    icon: Shield,
-    title: "Unbiased Comparisons",
-    description: "We show you all the details—the good and the not-so-good—so you can decide with confidence.",
-  },
-  {
-    icon: Users,
-    title: "Aggregated Reviews",
-    description: "We distill user and expert insights so you can quickly see each card's pros and cons.",
+    icon: Scale,
+    number: "100%",
+    label: "Unbiased Reviews",
+    color: "gold",
   },
 ];
 
@@ -28,34 +26,31 @@ const StatsSection = () => {
     <section className="py-12 md:py-20 bg-card">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-foreground mb-3 md:mb-4">
-              Why trust YourBestCard?
-            </h2>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto px-2">
-              We use AI and real-world data to help you quickly compare credit cards—but we always encourage you to double-check the details before you apply.
-            </p>
-          </div>
-
-          {/* Features Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-8">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="text-center group"
-              >
-                <div className="w-14 h-14 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-mint-light text-primary mx-auto mb-4 md:mb-5 flex items-center justify-center group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                  <feature.icon className="w-6 h-6 md:w-6 md:h-6" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {stats.map((stat, index) => {
+              const colorClasses = {
+                primary: 'bg-mint-light text-primary',
+                coral: 'bg-coral-light text-coral',
+                gold: 'bg-yellow-100 text-yellow-600',
+              };
+              return (
+                <div
+                  key={stat.label}
+                  className="text-center animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${colorClasses[stat.color as keyof typeof colorClasses]} mx-auto mb-4 md:mb-6 flex items-center justify-center`}>
+                    <stat.icon className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
+                  <div className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-foreground mb-2">
+                    {stat.number}
+                  </div>
+                  <div className="text-sm md:text-base text-muted-foreground">
+                    {stat.label}
+                  </div>
                 </div>
-                <h3 className="font-display text-base md:text-lg font-medium text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-sm md:text-sm text-muted-foreground leading-relaxed px-2">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

@@ -3,19 +3,25 @@ import HeroSection from "@/components/HeroSection";
 import QuickStartSection from "@/components/QuickStartSection";
 import FeaturedCardsSection from "@/components/FeaturedCardsSection";
 import StatsSection from "@/components/StatsSection";
+import TrustSection from "@/components/TrustSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="overflow-x-hidden">
+      <main className="overflow-x-hidden pt-16 md:pt-20">
         <HeroSection />
-        <QuickStartSection />
-        <div className="hidden md:block">
+        <StatsSection />
+        <div id="categories">
+          <QuickStartSection />
+        </div>
+        <div id="top-cards">
           <FeaturedCardsSection />
         </div>
-        <StatsSection />
+        <div id="how-it-works">
+          <TrustSection />
+        </div>
       </main>
       <Footer />
     </div>
