@@ -87,21 +87,21 @@ const HeroSection = () => {
                 <p className="text-sm text-muted-foreground text-center mb-4">
                   Tell me where you are in life and I'll recommend your best card
                 </p>
-                <div className="flex flex-col md:flex-row md:flex-wrap justify-center gap-2 md:gap-3 w-full md:w-auto">
+                <div className="grid grid-cols-2 gap-2 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-3">
                   {prompts.map((prompt, index) => (
                     <Button
                       key={prompt}
                       variant="pill"
                       size="sm"
                       onClick={() => handleTagClick(prompt)}
-                      className="animate-fade-in w-full md:w-auto"
+                      className="animate-fade-in rounded-lg md:rounded-full whitespace-normal md:whitespace-nowrap h-auto min-h-[4rem] md:min-h-0 py-3 md:py-0 px-3 md:px-4 text-center text-xs md:text-xs leading-tight md:leading-normal"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       {prompt}
                     </Button>
                   ))}
                 </div>
-                <p className="text-xs text-muted-foreground mt-4 max-w-2xl mx-auto text-center px-4">
+                <p className="text-xs text-muted-foreground mt-8 md:mt-4 max-w-2xl mx-auto text-center px-4">
                   Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it does not influence our recommendations.
                 </p>
               </div>
