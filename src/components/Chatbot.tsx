@@ -392,13 +392,20 @@ const parseStepResponse = (response: string): ParsedResponse => {
 };
 
 /**
- * Get a random cartoon image URL from the GitHub repo
+ * Generate cartoon URLs (cartoons are numbered 1-10)
  */
-const getRandomCartoon = (): string => {
-  // Generate a random number between 1 and 50 (adjust range based on available cartoons)
-  const randomNum = Math.floor(Math.random() * 50) + 1;
-  // Use raw.githubusercontent.com to access the image directly
-  return `https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${randomNum}.png`;
+const generateCartoonUrls = (): string[] => {
+  const urls: string[] = [];
+  for (let i = 1; i <= 10; i++) {
+    urls.push(`https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${i}.png`);
+  }
+  // Use Fisher-Yates shuffle for better randomness
+  for (let i = urls.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [urls[i], urls[j]] = [urls[j], urls[i]];
+  }
+  console.log('Generated and shuffled cartoon URLs. First 5:', urls.slice(0, 5));
+  return urls;
 };
 
 const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) => {
@@ -411,12 +418,52 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [conversationHistory, setConversationHistory] = useState<ChatbaseMessage[]>([]);
   const [currentCartoon, setCurrentCartoon] = useState<string | null>(null);
+  const availableCartoonsRef = useRef<string[]>(generateCartoonUrls());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const userMessageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   const inputRef = useRef<HTMLInputElement>(null);
   const processedInitialQuestionRef = useRef<string | null>(null);
   const isInitializingRef = useRef<boolean>(false);
+
+  /**
+   * Get a random cartoon that hasn't been shown yet
+   * Ensures no repeats until all cartoons have been shown, then resets
+   * Uses Math.random() for true randomness each time
+   */
+  const getRandomCartoon = (): string => {
+    console.log('=== getRandomCartoon called ===');
+    console.log('Current available count:', availableCartoonsRef.current.length);
+    console.log('First 5 available:', availableCartoonsRef.current.slice(0, 5));
+    
+    // If all cartoons have been shown, reset the available list (shuffled)
+    if (availableCartoonsRef.current.length === 0) {
+      console.log('All cartoons shown, resetting...');
+      availableCartoonsRef.current = generateCartoonUrls();
+      console.log('After reset, count:', availableCartoonsRef.current.length);
+      console.log('First 5 after reset:', availableCartoonsRef.current.slice(0, 5));
+    }
+
+    // Pick a truly random index from available cartoons
+    const randomValue = Math.random();
+    const randomIndex = Math.floor(randomValue * availableCartoonsRef.current.length);
+    const selected = availableCartoonsRef.current[randomIndex];
+    
+    console.log('Random value:', randomValue);
+    console.log('Random index:', randomIndex, 'out of', availableCartoonsRef.current.length);
+    console.log('Selected cartoon:', selected);
+    
+    // Remove the selected cartoon from available list
+    const beforeLength = availableCartoonsRef.current.length;
+    availableCartoonsRef.current = availableCartoonsRef.current.filter((_, idx) => idx !== randomIndex);
+    const afterLength = availableCartoonsRef.current.length;
+    
+    console.log('Removed from list. Before:', beforeLength, 'After:', afterLength);
+    console.log('Remaining first 3:', availableCartoonsRef.current.slice(0, 3));
+    console.log('=== End getRandomCartoon ===');
+    
+    return selected;
+  };
 
   // Scroll behavior: scroll to user's most recent question when assistant responds (both desktop and mobile)
   useEffect(() => {
@@ -517,8 +564,13 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
     setIsLoading(true);
     setSuggestedQuestions([]);
     
-    // Set a random cartoon for this question
+    // Clear previous cartoon first, then set a NEW random cartoon for THIS question
+    // This ensures each question gets a unique random cartoon
+    setCurrentCartoon(null);
     const cartoonUrl = getRandomCartoon();
+    console.log('Setting new random cartoon for question:', messageText.trim(), 'Cartoon URL:', cartoonUrl);
+    console.log('Available cartoons remaining:', availableCartoonsRef.current.length);
+    console.log('Available cartoons:', availableCartoonsRef.current.slice(0, 5), '...');
     setCurrentCartoon(cartoonUrl);
 
     // Create conversation ID if it doesn't exist
@@ -842,11 +894,11 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                 src={currentCartoon} 
                 alt="Cartoon" 
                 className="max-w-full h-auto rounded-lg shadow-sm"
-                style={{ maxWidth: '315px' }}
+                style={{ maxWidth: '394px' }}
                 onError={(e) => {
-                  // Fallback if image doesn't exist - try a different number
+                  // Fallback if image doesn't exist - try a different number (1-10)
                   const target = e.target as HTMLImageElement;
-                  const randomNum = Math.floor(Math.random() * 50) + 1;
+                  const randomNum = Math.floor(Math.random() * 10) + 1;
                   target.src = `https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${randomNum}.png`;
                 }}
               />
@@ -880,11 +932,11 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                   src={currentCartoon} 
                   alt="Cartoon" 
                   className="max-w-full h-auto rounded-lg shadow-sm"
-                  style={{ maxWidth: '300px' }}
+                  style={{ maxWidth: '394px' }}
                   onError={(e) => {
-                    // Fallback if image doesn't exist - try a different number
+                    // Fallback if image doesn't exist - try a different number (1-10)
                     const target = e.target as HTMLImageElement;
-                    const randomNum = Math.floor(Math.random() * 50) + 1;
+                    const randomNum = Math.floor(Math.random() * 10) + 1;
                     target.src = `https://raw.githubusercontent.com/dfield18/cartoons/main/mobile/cartoon${randomNum}.png`;
                   }}
                 />

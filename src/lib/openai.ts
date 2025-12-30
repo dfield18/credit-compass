@@ -37,7 +37,14 @@ export async function generateSuggestedQuestions(
     });
 
     if (!response.ok) {
-      console.error('API route error:', response.status, response.statusText);
+      // In development, API routes don't exist (only work on Vercel)
+      // Silently fall back to default questions
+      if (response.status === 404 && import.meta.env.DEV) {
+        // Development mode - API route not available, use defaults
+        return getDefaultSuggestedQuestions();
+      }
+      // Production error - log for debugging
+      console.warn('API route error:', response.status, response.statusText);
       return getDefaultSuggestedQuestions();
     }
 
@@ -50,6 +57,12 @@ export async function generateSuggestedQuestions(
 
     return getDefaultSuggestedQuestions();
   } catch (error) {
+    // Network errors are expected in development (API route doesn't exist locally)
+    if (import.meta.env.DEV) {
+      // Silently use defaults in development
+      return getDefaultSuggestedQuestions();
+    }
+    // Log errors in production
     console.error('Failed to generate suggested questions:', error);
     return getDefaultSuggestedQuestions();
   }
