@@ -923,7 +923,7 @@ const Chatbot = ({ initialQuestion, onSuggestedQuestionClick }: ChatbotProps) =>
                 </button>
               ))}
             </div>
-            <p className="text-xs text-muted-foreground mt-3 md:mt-4 max-w-2xl">
+            <p className="text-xs text-muted-foreground !mt-6 md:!mt-8 max-w-2xl">
               Some of the credit cards on this site are from partners who pay us when you click or apply. This helps keep the site running, but it does not influence our recommendations.
             </p>
             {currentCartoon && (
