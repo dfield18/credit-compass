@@ -12,7 +12,6 @@ const Index = () => {
       <Header />
       <main className="overflow-x-hidden pt-16 md:pt-20">
         <HeroSection />
-        <StatsSection />
         <div id="categories">
           <QuickStartSection />
         </div>

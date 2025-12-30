@@ -87,14 +87,14 @@ const HeroSection = () => {
                 <p className="text-sm text-muted-foreground text-center mb-4">
                   Tell me where you are in life and I'll recommend your best card
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="flex flex-col md:flex-row md:flex-wrap justify-center gap-2 md:gap-3 w-full md:w-auto">
                   {prompts.map((prompt, index) => (
                     <Button
                       key={prompt}
                       variant="pill"
                       size="sm"
                       onClick={() => handleTagClick(prompt)}
-                      className="animate-fade-in"
+                      className="animate-fade-in w-full md:w-auto"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       {prompt}
@@ -162,17 +162,17 @@ const HeroSection = () => {
         
         {/* Trust indicators */}
         <div className="max-w-3xl mx-auto mt-8 md:mt-16 pt-6 md:pt-12 border-t border-border">
-          <div className="grid grid-cols-3 gap-3 md:gap-8 text-center">
-            <div>
-              <div className="font-serif text-2xl sm:text-3xl md:text-4xl font-medium text-foreground">350+</div>
+          <div className="grid grid-cols-3 gap-3 md:gap-8 text-center items-baseline">
+            <div className="flex flex-col items-center">
+              <div className="font-serif text-2xl sm:text-3xl md:text-4xl font-medium text-foreground leading-none">350+</div>
               <div className="text-xs sm:text-sm text-muted-foreground mt-1">Cards Analyzed</div>
             </div>
-            <div>
-              <div className="font-serif text-2xl sm:text-3xl md:text-4xl font-medium text-foreground">1,400+</div>
+            <div className="flex flex-col items-center">
+              <div className="font-serif text-2xl sm:text-3xl md:text-4xl font-medium text-foreground leading-none">1,400+</div>
               <div className="text-xs sm:text-sm text-muted-foreground mt-1">Verified Data Sources</div>
             </div>
-            <div>
-              <div className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-foreground">AI-Powered</div>
+            <div className="flex flex-col items-center">
+              <div className="font-serif text-xl sm:text-2xl md:text-3xl font-medium text-foreground leading-none">AI-Powered</div>
               <div className="text-xs sm:text-sm text-muted-foreground mt-1">Smart Recommendations</div>
             </div>
           </div>
